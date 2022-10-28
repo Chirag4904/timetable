@@ -22,9 +22,9 @@ services:
     build: .
     volumes:
       - "./server:/home/node/timetable/server"
-      - "./client:/home/node/timetable/client:ro"
+      # - "./client:/home/node/timetable/client:ro"
     ports:
-      - 8080:8000
+      - 5000:8000
     container_name: backendbad
     environment:
       DB_USER: root

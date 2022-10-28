@@ -1,3 +1,17 @@
+FROM node:18 as frontend
+
+WORKDIR /app
+
+COPY ./client/svelte-timetable/package.json .
+RUN npm install --verbose
+
+ENV API_URL="http://localhost:8000"
+
+COPY ./client/svelte-timetable/ .
+RUN npm run build
+
+# -------
+
 FROM node:18
 
 EXPOSE 8000
@@ -13,6 +27,7 @@ ENV NODE_ENV=development
 RUN  npm install --verbose &&  mv node_modules ../ && ls ../
 
 COPY server .
+COPY --from=frontend /app/dist/ ../client/svelte-timetable/dist/
 # RUN npm ls && ls -a node_modules
 RUN echo "pwd && printenv && npx nodemon ./src/server.js" >> /entrypoint.sh
 
