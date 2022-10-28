@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 
 async function startServer() {
-	await mongoConnect();
+	await mongoConnect(process.env.MONGODB_URL || "");
 	await loadTeachersData();
 	await loadsubjectsData();
 
