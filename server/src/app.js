@@ -11,6 +11,15 @@ const { genAPIRouter } = require("./routes/general/gen-api.router")
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use((err, req, res, next) => {
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+        console.error(err);
+        res.status(400).json({ error: true , error_desc: err }); // Bad request
+		return
+    }
+    next();
+});
+
 app.use(
 	express.static(
 		path.join(__dirname, "..", "..", "client", "svelte-timetable", "dist")
