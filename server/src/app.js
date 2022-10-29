@@ -6,6 +6,8 @@ const path = require("path");
 const teachersRouter = require("./routes/teachers/teachers.router");
 const subjectsRouter = require("./routes/subjects/subjects.router");
 
+const { genAPIRouter } = require("./routes/general/gen-api.router")
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -22,6 +24,7 @@ app.use(
 );
 app.use("/api/teachers", teachersRouter);
 app.use("/api/subjects", subjectsRouter);
+app.use("/api/general", genAPIRouter)
 
 app.get("/*", (req, res) => {
 	res.sendFile(
