@@ -1,5 +1,12 @@
 const mongoose = require("mongoose");
 
+const subjectSchema = new mongoose.Schema({
+	subjectId: String,
+	L: Number,
+	T: Number,
+	P: Number,
+	prefOrder: Number,
+});
 const teachersSchema = new mongoose.Schema({
 	id: {
 		type: Number,
@@ -18,16 +25,8 @@ const teachersSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	choice1: {
-		type: Map,
-		required: true,
-	},
-	choice2: {
-		type: Map,
-		required: true,
-	},
-	choice3: {
-		type: Map,
+	subjects: {
+		type: [subjectSchema],
 		required: true,
 	},
 	maxLoad: {
