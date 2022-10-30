@@ -13,7 +13,18 @@ genAPIRouter.post("/commit_ltp", (req, res) => {
             error_desc: error,
         });
     } else {
-        res.json(commitLTP.handler(value));
+        commitLTP
+            .handler(value)
+            .then((data) => {
+                res.json(data);
+            })
+            .catch((err) => {
+                console.error(err);
+                res.status(400).json({
+                    error: true,
+                    erro_desc: err,
+                });
+            });
     }
 });
 
