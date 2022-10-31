@@ -51,41 +51,41 @@ async function commitLTPHandler(req) {
     // ==========================================================
 
     // DEBUG ONLY, TODO: remove this
-    if (req.practical_hours == 6) {
-        data = [
-            {
-                sub: await Subject.findOne({ id: "CSET101" }),
-                teacher: await teacher.findOne({ id: 1 }),
-                l: 4,
-                t: 3,
-                p: 2,
-            },
-            {
-                sub: await Subject.findOne({ id: "CBCA101" }),
-                teacher: await teacher.findOne({ id: 1 }),
-                l: 1,
-                t: 1,
-                p: 1,
-            },
-        ];
-        data.forEach((element) => {
-            let _meh = new Allotment({
-                subject: element.sub._id,
-                allotedTeachers: [
-                    {
-                        teacher: element.teacher._id,
-                        lectureHrs: element.l,
-                        tutorialHrs: element.t,
-                        practicalHrs: element.p,
-                    },
-                ],
-            });
+    // if (req.practical_hours == 6) {
+    //     data = [
+    //         {
+    //             sub: await Subject.findOne({ id: "CSET101" }),
+    //             teacher: await teacher.findOne({ id: 1 }),
+    //             l: 4,
+    //             t: 3,
+    //             p: 2,
+    //         },
+    //         {
+    //             sub: await Subject.findOne({ id: "CBCA101" }),
+    //             teacher: await teacher.findOne({ id: 1 }),
+    //             l: 1,
+    //             t: 1,
+    //             p: 1,
+    //         },
+    //     ];
+    //     data.forEach((element) => {
+    //         let _meh = new Allotment({
+    //             subject: element.sub._id,
+    //             allotedTeachers: [
+    //                 {
+    //                     teacher: element.teacher._id,
+    //                     lectureHrs: element.l,
+    //                     tutorialHrs: element.t,
+    //                     practicalHrs: element.p,
+    //                 },
+    //             ],
+    //         });
 
-            Allotment.findOneAndUpdate({ subject: element.sub._id }, _meh, { upsert: true }).exec();
-        });
-        // const p1 = await Allotment.findOne({"subject.code" : "CSET101"})
-        // console.log(p1)
-    }
+    //         Allotment.findOneAndUpdate({ subject: element.sub._id }, _meh, { upsert: true }).exec();
+    //     });
+    //     // const p1 = await Allotment.findOne({"subject.code" : "CSET101"})
+    //     // console.log(p1)
+    // }
 
     // check if hours feasible by teacher
     const teacherAllotments = await Allotment.find(
