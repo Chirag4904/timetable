@@ -107,14 +107,46 @@ async function commitLTPHandler(req) {
         _teacherWorkload + req.lecture_hours + req.tutorial_hours + req.practical_hours >
         teach.maxLoad
     ) {
-        throw ({
+        throw {
             is_feasible: false,
-            message: `exceeded maximum weekly workload! Teacher workload is already ${_teacherWorkload}hrs!`,
-        });
+            message: `exceeded maximum weekly workload! Teacher workload is already at ${_teacherWorkload}hrs!`,
+        };
     }
+    // ===============================================
+
+    // check if ltp feasible for the subject
+    // calculate subject's effective workload
+    let _assignedLoad = { lecture: 0, tutorial: 0, practical: 0 };
+    allotment.allotedTeachers.forEach((e) => {
+        // console.log(e)
+        if (!e.teacher.equals(teach._id)) {
+            //
+            _assignedLoad.lecture += e.lectureHrs;
+            _assignedLoad.tutorial += e.tutorialHrs;
+            _assignedLoad.practical += e.practicalHrs;
+        }
+    });
+
+    let availableLoad = {
+        lecture: subject.totalLecture - _assignedLoad.lecture,
+        tutorial: subject.totalTutorial - _assignedLoad.tutorial,
+        practical: subject.totalPractical - _assignedLoad.practical,
+    };
+
+    Object.keys(availableLoad).map((key) => {
+        if (availableLoad[key] - req[`${key}_hours`] < 0) {
+            throw {
+                is_feasible: false,
+                message: `exceeded subject's available ${key} hours`,
+                available_subject_workload: availableLoad,
+            };
+        }
+    });
+
+    // ==================================================
 
     return {
-        workload: _teacherWorkload,
+        workload: availableLoad,
         list: teacherAllotments,
         alot: await allotment.populate("subject"),
         sub: subject,
