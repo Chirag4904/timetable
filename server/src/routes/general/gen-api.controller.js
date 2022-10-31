@@ -133,8 +133,11 @@ async function commitLTPHandler(req) {
         practical: subject.totalPractical - _assignedLoad.practical,
     };
 
+    let __newEffectiveAvailableWorkload = {};
+
     Object.keys(availableLoad).map((key) => {
-        if (availableLoad[key] - req[`${key}_hours`] < 0) {
+        __newEffectiveAvailableWorkload[key] = availableLoad[key] - req[`${key}_hours`];
+        if (__newEffectiveAvailableWorkload[key] < 0) {
             throw {
                 is_feasible: false,
                 message: `exceeded subject's available ${key} hours`,
@@ -181,7 +184,7 @@ async function commitLTPHandler(req) {
 
     return {
         is_feasible: true,
-        available_subject_workload: availableLoad,
+        available_subject_workload: __newEffectiveAvailableWorkload,
         allotment: await (await allotment.populate("subject")).populate("allotedTeachers.teacher"),
     };
 }
