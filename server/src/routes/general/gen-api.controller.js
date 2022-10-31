@@ -95,9 +95,9 @@ async function commitLTPHandler(req) {
     let _teacherWorkload = 0;
     teacherAllotments.forEach((element) => {
         element = element.allotedTeachers[0];
-        console.log(typeof element.teacher);
+        // console.log(typeof element.teacher);
         if (element.teacher.equals(teach._id)) {
-            console.log(element);
+            // console.log(element);
             _teacherWorkload += element.lectureHrs + element.tutorialHrs + element.practicalHrs;
         } else {
             console.warn("DB query returning other teachers as well", element);
@@ -145,12 +145,44 @@ async function commitLTPHandler(req) {
 
     // ==================================================
 
+    // now we're clear to modify the allotent document
+    const _index = allotment.allotedTeachers.findIndex((e) => e.teacher.equals(teach._id));
+    console.log("index:", _index);
+    const _toSave = {
+        teacher: teach._id,
+        lectureHrs: req.lecture_hours,
+        tutorialHrs: req.tutorial_hours,
+        practicalHrs: req.practical_hours,
+    };
+    if (_index === -1) {
+        allotment.allotedTeachers.push(_toSave);
+    } else {
+        allotment.allotedTeachers[_index] = _toSave;
+    }
+
+    allotment
+        .save()
+        .then()
+        .catch((err) => {
+            throw { message: err };
+        });
+
+    // NOTE: Intentionally not updating the teachers workload from here since it can lead to duplicate workload being added
+    //       Better solution is to dynamically get teacher's workload
+    // update teacher's workloa
+    // teach.currentLoad += req.lecture_hours + req.tutorial_hours + req.practical_hours;
+
+    // teach
+    //     .save()
+    //     .then()
+    //     .catch((err) => {
+    //         throw { message: err };
+    //     });
+
     return {
-        workload: availableLoad,
-        list: teacherAllotments,
-        alot: await allotment.populate("subject"),
-        sub: subject,
-        teach: teach,
+        is_feasible: true,
+        available_subject_workload: availableLoad,
+        allotment: await (await allotment.populate("subject")).populate("allotedTeachers.teacher"),
     };
 }
 
