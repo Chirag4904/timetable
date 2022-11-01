@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  mongodb:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: mehmeh
+  
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: mehmeh
+      ME_CONFIG_MONGODB_URL: mongodb://root:mehmeh@mongodb:27017/
+    depends_on:
+      - mongodb
+  
+  backend:
+    build: .
+    volumes:
+      - "./server:/home/node/timetable/server"
+      # - "./client:/home/node/timetable/client:ro"
+    ports:
+      - 5000:8000
+    container_name: backendbad
+    environment:
+      DB_USER: root
+      DB_PASS: mehmeh
+      PORT: 8000
+      MONGODB_URL: mongodb://root:mehmeh@mongodb:27017/
+    depends_on:
+      - mongodb
