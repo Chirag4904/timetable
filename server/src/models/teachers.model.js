@@ -32,7 +32,7 @@ const teachers = [
 
 		maxLoad: 14,
 		currentLoad: 0,
-		isAssigned: false,
+		isAssigned: true,
 		isAvailable: true,
 	},
 

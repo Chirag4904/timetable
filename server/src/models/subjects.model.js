@@ -5,7 +5,7 @@ const subjects = [
 		id: "BCA305L",
 		name: "Network Security",
 		Programme: "BCA",
-		isAssigned: false,
+		isAssigned: true,
 		originalStructure: { L: 2, T: 0, P: 2 },
 		credits: 3,
 		lectureBatches: 1,
