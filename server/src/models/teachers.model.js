@@ -162,7 +162,7 @@ const teachers = [
 				prefOrder: 2,
 			},
 			{
-				subjectId: "BCA305L",
+				subjectId: "BCA103",
 				L: 2,
 				T: 0,
 				P: 2,
@@ -295,7 +295,7 @@ const teachers = [
 				prefOrder: 1,
 			},
 			{
-				subjectId: "BBCA102",
+				subjectId: "BCA102",
 				L: 3,
 				T: 1,
 				P: 2,
@@ -338,9 +338,9 @@ const teachers = [
 			},
 			{
 				subjectId: "BCA305L",
-				L: 0,
+				L: 2,
 				T: 0,
-				P: 0,
+				P: 2,
 				prefOrder: 3,
 			},
 		],
@@ -358,7 +358,7 @@ const teachers = [
 		contact: "8383748734",
 		subjects: [
 			{
-				subjectId: "BCA305L",
+				subjectId: "CSET452",
 				L: 2,
 				T: 0,
 				P: 2,
