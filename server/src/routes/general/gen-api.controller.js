@@ -90,9 +90,10 @@ async function commitLTPHandler(req) {
     // check if hours feasible by teacher
     const teacherAllotments = await Allotment.find(
         { "allotedTeachers.teacher": teach._id },
-        { "allotedTeachers.$": 1 }
+        { "allotedTeachers.$": 1, "subject": 1 }
     );
     let _teacherWorkload = 0;
+    console.log(JSON.stringify(teacherAllotments));
     teacherAllotments.forEach((element) => {
         element = element.allotedTeachers[0];
         // console.log(typeof element.teacher);
