@@ -84,8 +84,8 @@ async function getAllSubjects(query) {
                 pipeline: [{ $project: { allotedTeachers: 1 } }],
             },
         },
-        { $unwind: "$allotedTeachers" },
-        { $addFields: { allotedTeachers: "$allotedTeachers.allotedTeachers" } },
+        { $unwind: {path: "$allotedTeachers", preserveNullAndEmptyArrays: true} },
+        { $addFields: { allotedTeachers: {$ifNull: ["$allotedTeachers.allotedTeachers", []]} } },
 		{
             $lookup: {
                 from: "teachers",
