@@ -105,7 +105,28 @@ async function loadsubjectsData() {
 }
 
 async function getAllSubjects(query) {
-	return await subjectsDatabase.find(query);
+    return await subjectsDatabase.aggregate([
+        { $match: query },
+        {
+            $lookup: {
+                from: "allotments",
+                localField: "_id",
+                foreignField: "subject",
+                as: "allotedTeachers",
+                pipeline: [{ $project: { allotedTeachers: 1 } }],
+            },
+        },
+        { $unwind: {path: "$allotedTeachers", preserveNullAndEmptyArrays: true} },
+        { $addFields: { allotedTeachers: {$ifNull: ["$allotedTeachers.allotedTeachers", []]} } },
+		{
+            $lookup: {
+                from: "teachers",
+                localField: "allotedTeachers.teacher",
+                foreignField: "_id",
+                as: "teachObj",
+            },
+        },
+    ]);
 }
 
 module.exports = {
