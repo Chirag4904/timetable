@@ -45,6 +45,10 @@ const teachersSchema = new mongoose.Schema({
 		type: Boolean,
 		required: true,
 	},
+	profilePicture: {
+		type: String,
+		required: true,
+	},
 });
 
 module.exports = mongoose.model("teacher", teachersSchema);
