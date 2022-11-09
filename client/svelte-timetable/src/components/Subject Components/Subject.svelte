@@ -6,9 +6,15 @@
 </script>
 
 <Router url="/">
-	<Link to="subject/{id}">
-		<div class="w-24 h-10 p-2 {isAssigned ? 'bg-green-200' : 'bg-red-200'}">
-			<div class="text-center">{id}</div>
+	<Link to={id}>
+		<div
+			class="relative w-24 h-14 rounded-md p-2 {isAssigned
+				? 'bg-green-200'
+				: 'bg-red-200'}"
+		>
+			<div class="absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4">
+				{id}
+			</div>
 		</div>
 	</Link>
 </Router>
