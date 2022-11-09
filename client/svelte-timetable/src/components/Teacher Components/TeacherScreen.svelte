@@ -18,10 +18,14 @@
 	// console.log(sub[0]);
 </script>
 
-{#if teachers}
-	<div class="flex gap-x-2">
-		{#each teachers as teacher}
-			<Teacher {...teacher} />
-		{/each}
-	</div>
-{/if}
+<div>
+	<div class="text-center text-2xl ">T E A C H E R S</div>
+
+	{#if teachers}
+		<div class="flex gap-x-2 mt-4">
+			{#each teachers as teacher}
+				<Teacher {...teacher} />
+			{/each}
+		</div>
+	{/if}
+</div>

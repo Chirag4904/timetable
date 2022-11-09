@@ -17,9 +17,14 @@
 </script>
 
 {#if subject}
-	<SubjectPref
-		pref1={subject.choice1}
-		pref2={subject.choice2}
-		pref3={subject.choice3}
-	/>
+	<div class="bg-gray-100">
+		<SubjectPref
+			subjectId={subject.id}
+			subjectName={subject.name}
+			pref1={subject.choice1}
+			pref2={subject.choice2}
+			pref3={subject.choice3}
+			allotedTeachers={subject.allotedTeachers}
+		/>
+	</div>
 {/if}

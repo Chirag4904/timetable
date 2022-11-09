@@ -5,7 +5,7 @@
 	import TeacherScreen from "./components/Teacher Components/TeacherScreen.svelte";
 	import SubjectPref from "./components/Subject Components/SubjectPref.svelte";
 	import SubjectInfo from "./components/Subject Components/SubjectInfo.svelte";
-	$: choice = "subjects";
+	$: choice = "subjecs";
 	function handleChoice(e) {
 		choice = e.detail.text;
 	}
@@ -18,15 +18,21 @@
 
 <Router>
 	<body>
-		<Route path="/">
+		<Route path="/app">
 			<Navbar on:option={handleChoice} />
-			{#if choice === "subjects"}
+			<!-- {#if choice === "subjects"}
 				<SubjectScreen on:subjectInfo={handleSubjectInfo} />
 			{:else if choice === "teachers"}
 				<TeacherScreen />
-			{/if}
+			{/if} -->
 		</Route>
-		<Route path="/subject/:id" let:params>
+		<Route path="/app/subjects">
+			<SubjectScreen on:subjectInfo={handleSubjectInfo} />
+		</Route>
+		<Route path="/app/teachers">
+			<TeacherScreen />
+		</Route>
+		<Route path="/app/subjects/:id" let:params>
 			<div>
 				<SubjectInfo id={params.id} />
 			</div>
