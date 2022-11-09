@@ -1,5 +1,6 @@
 const teachersDatabase = require("./teachers.mongo");
-
+const maleURL =
+	"https://image.shutterstock.com/image-vector/man-character-face-avatar-glasses-260nw-562077406.jpg";
 const teachers = [
 	{
 		id: 1,
@@ -8,24 +9,24 @@ const teachers = [
 		contact: "8383748734",
 		subjects: [
 			{
-				subjectId: "BCA305L",
-				L: 2,
+				subjectId: "CBCA103",
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 1,
 			},
 			{
 				subjectId: "CSET452",
-				L: 2,
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 2,
 			},
 			{
-				subjectId: "CSET219",
-				L: 3,
+				subjectId: "CSET211",
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 3,
 			},
 		],
@@ -34,6 +35,7 @@ const teachers = [
 		currentLoad: 0,
 		isAssigned: true,
 		isAvailable: true,
+		profilePicture: maleURL,
 	},
 
 	{
@@ -43,24 +45,24 @@ const teachers = [
 		contact: "8348563219",
 		subjects: [
 			{
-				subjectId: "CSET219",
-				L: 3,
+				subjectId: "CSET211",
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 1,
 			},
 			{
-				subjectId: "BCA305L",
-				L: 2,
+				subjectId: "CBCA103",
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 2,
 			},
 			{
-				subjectId: "BCA103",
-				L: 3,
-				T: 1,
-				P: 2,
+				subjectId: "CSET458",
+				L: 0,
+				T: 0,
+				P: 0,
 				prefOrder: 3,
 			},
 		],
@@ -69,6 +71,8 @@ const teachers = [
 		currentLoad: 0,
 		isAssigned: false,
 		isAvailable: true,
+		profilePicture:
+			"https://img.freepik.com/premium-vector/young-black-man-face-with-beard-male-portrait-avatar-flat-style-front-view_497399-251.jpg?w=2000",
 	},
 
 	{
@@ -78,25 +82,25 @@ const teachers = [
 		contact: "8388734646",
 		subjects: [
 			{
-				subjectId: "BTECH363",
-				L: 2,
+				subjectId: "CSET363",
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 1,
 			},
 			{
-				subjectId: "BCA361L",
-				L: 2,
+				subjectId: "CBCA204",
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 2,
 			},
 			{
-				subjectId: "BCA305L",
-				L: 2,
+				subjectId: "CBCA103",
+				L: 0,
 				T: 0,
-				P: 2,
-				prefOrder: 2,
+				P: 0,
+				prefOrder: 3,
 			},
 		],
 
@@ -104,6 +108,8 @@ const teachers = [
 		currentLoad: 0,
 		isAssigned: false,
 		isAvailable: true,
+		profilePicture:
+			"https://www.cliparts101.com/files/367/63BA654AECB7FD26A32D08915C923030/avatar_nick.png",
 	},
 
 	{
@@ -114,24 +120,24 @@ const teachers = [
 		subjects: [
 			{
 				subjectId: "CSET363",
-				L: 2,
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 1,
 			},
 			{
-				subjectId: "BCA102",
-				L: 3,
-				T: 1,
-				P: 2,
+				subjectId: "CBCA204",
+				L: 0,
+				T: 0,
+				P: 0,
 				prefOrder: 2,
 			},
 			{
-				subjectId: "BCA305L",
-				L: 2,
+				subjectId: "CBCA103",
+				L: 0,
 				T: 0,
-				P: 2,
-				prefOrder: 2,
+				P: 0,
+				prefOrder: 3,
 			},
 		],
 
@@ -139,6 +145,8 @@ const teachers = [
 		currentLoad: 0,
 		isAssigned: false,
 		isAvailable: true,
+		profilePicture:
+			"https://i.pinimg.com/736x/72/cd/96/72cd969f8e21be3476277d12d44c791c.jpg",
 	},
 
 	{
@@ -149,24 +157,24 @@ const teachers = [
 		subjects: [
 			{
 				subjectId: "BCA101",
-				L: 3,
-				T: 1,
-				P: 2,
+				L: 0,
+				T: 0,
+				P: 0,
 				prefOrder: 1,
 			},
 			{
-				subjectId: "CSET219",
-				L: 2,
+				subjectId: "CSET211",
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 2,
 			},
 			{
 				subjectId: "BCA103",
-				L: 2,
+				L: 0,
 				T: 0,
-				P: 2,
-				prefOrder: 2,
+				P: 0,
+				prefOrder: 3,
 			},
 		],
 
@@ -174,6 +182,8 @@ const teachers = [
 		currentLoad: 0,
 		isAssigned: false,
 		isAvailable: true,
+		profilePicture:
+			"https://static.vecteezy.com/system/resources/previews/004/773/704/non_2x/a-girl-s-face-with-a-beautiful-smile-a-female-avatar-for-a-website-and-social-network-vector.jpg",
 	},
 
 	{
@@ -184,23 +194,23 @@ const teachers = [
 		subjects: [
 			{
 				subjectId: "BCA101",
-				L: 3,
-				T: 1,
-				P: 2,
+				L: 0,
+				T: 0,
+				P: 0,
 				prefOrder: 1,
 			},
 			{
 				subjectId: "CSET452",
-				L: 2,
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 2,
 			},
 			{
-				subjectId: "BCA361L",
-				L: 2,
+				subjectId: "CBCA204",
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 3,
 			},
 		],
@@ -209,8 +219,10 @@ const teachers = [
 		currentLoad: 0,
 		isAssigned: false,
 		isAvailable: true,
+		profilePicture:
+			"https://i.pinimg.com/736x/72/cd/96/72cd969f8e21be3476277d12d44c791c.jpg",
 	},
-	
+
 	{
 		id: 7,
 		name: "Madhushi Verma",
@@ -219,23 +231,23 @@ const teachers = [
 		subjects: [
 			{
 				subjectId: "BCA101",
-				L: 3,
-				T: 1,
-				P: 2,
+				L: 0,
+				T: 0,
+				P: 0,
 				prefOrder: 1,
 			},
 			{
-				subjectId: "BCA361L",
-				L: 2,
+				subjectId: "CBCA204",
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 1,
 			},
 			{
-				subjectId: "CSET219",
-				L: 3,
+				subjectId: "CSET211",
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 3,
 			},
 		],
@@ -244,6 +256,8 @@ const teachers = [
 		currentLoad: 0,
 		isAssigned: false,
 		isAvailable: true,
+		profilePicture:
+			"https://static.vecteezy.com/system/resources/previews/004/773/704/non_2x/a-girl-s-face-with-a-beautiful-smile-a-female-avatar-for-a-website-and-social-network-vector.jpg",
 	},
 
 	{
@@ -254,24 +268,24 @@ const teachers = [
 		subjects: [
 			{
 				subjectId: "BCA101L",
-				L: 2,
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 1,
 			},
 			{
-				subjectId: "BBCA102",
-				L: 3,
-				T: 1,
-				P: 2,
+				subjectId: "CSET452",
+				L: 0,
+				T: 0,
+				P: 0,
 				prefOrder: 2,
 			},
 			{
-				subjectId: "BCA361",
-				L: 2,
+				subjectId: "CBCA204",
+				L: 0,
 				T: 0,
-				P: 2,
-				prefOrder: 1,
+				P: 0,
+				prefOrder: 3,
 			},
 		],
 
@@ -279,6 +293,8 @@ const teachers = [
 		currentLoad: 0,
 		isAssigned: false,
 		isAvailable: true,
+		profilePicture:
+			"https://i.pinimg.com/736x/72/cd/96/72cd969f8e21be3476277d12d44c791c.jpg",
 	},
 
 	{
@@ -288,25 +304,25 @@ const teachers = [
 		contact: "8383748734",
 		subjects: [
 			{
-				subjectId: "BCA361L",
-				L: 2,
+				subjectId: "CBCA204",
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 1,
 			},
 			{
 				subjectId: "BCA102",
-				L: 3,
-				T: 1,
-				P: 2,
+				L: 0,
+				T: 0,
+				P: 0,
 				prefOrder: 2,
 			},
 			{
 				subjectId: "CSET452",
-				L: 2,
+				L: 0,
 				T: 0,
-				P: 2,
-				prefOrder: 1,
+				P: 0,
+				prefOrder: 3,
 			},
 		],
 
@@ -314,6 +330,8 @@ const teachers = [
 		currentLoad: 0,
 		isAssigned: false,
 		isAvailable: true,
+		profilePicture:
+			"https://i.pinimg.com/736x/72/cd/96/72cd969f8e21be3476277d12d44c791c.jpg",
 	},
 
 	{
@@ -323,24 +341,24 @@ const teachers = [
 		contact: "8383748734",
 		subjects: [
 			{
-				subjectId: "CSET219",
-				L: 3,
+				subjectId: "CSET211",
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 1,
 			},
 			{
 				subjectId: "BCA102",
-				L: 3,
-				T: 1,
-				P: 2,
+				L: 0,
+				T: 0,
+				P: 0,
 				prefOrder: 2,
 			},
 			{
-				subjectId: "BCA305L",
-				L: 2,
+				subjectId: "CBCA103",
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 3,
 			},
 		],
@@ -349,6 +367,8 @@ const teachers = [
 		currentLoad: 0,
 		isAssigned: false,
 		isAvailable: true,
+		profilePicture:
+			"https://i.pinimg.com/736x/72/cd/96/72cd969f8e21be3476277d12d44c791c.jpg",
 	},
 
 	{
@@ -359,23 +379,23 @@ const teachers = [
 		subjects: [
 			{
 				subjectId: "CSET452",
-				L: 2,
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 1,
 			},
 			{
 				subjectId: "BCA102",
-				L: 3,
-				T: 1,
-				P: 2,
+				L: 0,
+				T: 0,
+				P: 0,
 				prefOrder: 1,
 			},
 			{
 				subjectId: "CSET363",
-				L: 2,
+				L: 0,
 				T: 0,
-				P: 2,
+				P: 0,
 				prefOrder: 3,
 			},
 		],
@@ -384,6 +404,8 @@ const teachers = [
 		currentLoad: 0,
 		isAssigned: false,
 		isAvailable: true,
+		profilePicture:
+			"https://st3.depositphotos.com/1007566/13175/v/600/depositphotos_131750410-stock-illustration-woman-female-avatar-character.jpg",
 	},
 ];
 
