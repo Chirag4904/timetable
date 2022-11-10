@@ -430,7 +430,26 @@ async function loadTeachersData() {
 }
 
 async function getAllTeachers(query) {
-	return await teachersDatabase.find(query);
+    return await teachersDatabase.aggregate([
+        { $match: query },
+        {
+            $lookup: {
+                from: "allotments",
+                localField: "_id",
+                foreignField: "allotedTeachers.teacher",
+                as: "allotedSubjects",
+                pipeline: [{ $project: { subject: 1, _id: 0 } }],
+            },
+        },
+        {
+            $lookup: {
+                from: "subjects",
+                localField: "allotedSubjects.subject",
+                foreignField: "_id",
+                as: "allotedSubjects",
+            },
+        },
+    ]);
 }
 
 module.exports = {
