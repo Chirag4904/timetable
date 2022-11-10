@@ -32,7 +32,7 @@ async function commitLTPHandler(req) {
      */
 
     // retrieve an allotment document, if it exists otherwis we create our own here
-    const subject = await Subject.findOne({ id: req.subject_id });
+    const subject = await Subject.findOne({ id: req.subject_id.toUpperCase() });
     const teach = await teacher.findOne({ id: req.teacher_id });
 
     if (!subject) {
@@ -90,19 +90,20 @@ async function commitLTPHandler(req) {
     // check if hours feasible by teacher
     const teacherAllotments = await Allotment.find(
         { "allotedTeachers.teacher": teach._id },
-        { "allotedTeachers.$": 1, "subject": 1 }
+        { "allotedTeachers.$": 1, subject: 1 }
     );
     let _teacherWorkload = 0;
-    console.log(JSON.stringify(teacherAllotments));
+    // console.log(JSON.stringify(teacherAllotments));
     teacherAllotments.forEach((element) => {
+        const _sub = element.subject;
         element = element.allotedTeachers[0];
         // console.log(typeof element.teacher);
-        if (element.teacher.equals(teach._id)) {
-            // console.log(element);
+        if (element.teacher.equals(teach._id) && !_sub.equals(subject._id)) {
+            // console.log(element, _sub);
             _teacherWorkload += element.lectureHrs + element.tutorialHrs + element.practicalHrs;
-        } else {
-            console.warn("DB query returning other teachers as well", element);
-        }
+        } // } else {
+        //     console.warn("DB query returning other teachers as well", element);
+        // }
     });
     if (
         _teacherWorkload + req.lecture_hours + req.tutorial_hours + req.practical_hours >
