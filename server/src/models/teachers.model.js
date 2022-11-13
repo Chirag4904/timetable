@@ -1,4 +1,5 @@
 const teachersDatabase = require("./teachers.mongo");
+const { updateSubjectChoices } = require("./subjects.model");
 const maleURL =
 	"https://image.shutterstock.com/image-vector/man-character-face-avatar-glasses-260nw-562077406.jpg";
 const teachers = [
@@ -433,8 +434,38 @@ async function getAllTeachers(query) {
 	return await teachersDatabase.find(query);
 }
 
+async function getLatestTeacherId() {
+	const teachers = await teachersDatabase.find({}).sort({ id: -1 }).limit(1);
+	// console.log(teachers);
+	return teachers[0].id;
+}
+
+async function addNewTeacher(teacher) {
+	const newTeacherId = (await getLatestTeacherId()) + 1;
+	const newTeacher = Object.assign(teacher, {
+		id: newTeacherId,
+		isAssigned: false,
+		isAvailable: true,
+		currentLoad: 0,
+		profilePicture:
+			"https://i.pinimg.com/736x/72/cd/96/72cd969f8e21be3476277d12d44c791c.jpg",
+		maxLoad: 14,
+		contact: 737373773,
+	});
+
+	const resp = await saveTeacher(newTeacher);
+	console.log(resp);
+
+	console.log("subject chlega");
+	teacher.subjects.forEach((sub) => {
+		console.log(sub.subjectId);
+		updateSubjectChoices(sub.subjectId, newTeacherId, sub.prefOrder);
+	});
+}
+
 module.exports = {
 	teachers,
 	loadTeachersData,
 	getAllTeachers,
+	addNewTeacher,
 };
