@@ -1,9 +1,13 @@
 const express = require("express");
 
-const { httpGetAllSubjects } = require("./subjects.controller");
+const {
+	httpGetAllSubjects,
+	httpUpdateSubjectState,
+} = require("./subjects.controller");
 
-const subjectssRouter = express.Router();
+const subjectsRouter = express.Router();
 
-subjectssRouter.get("/", httpGetAllSubjects);
+subjectsRouter.get("/", httpGetAllSubjects);
+// subjectsRouter.post("/status", httpUpdateSubjectState)
 
-module.exports = subjectssRouter;
+module.exports = subjectsRouter;

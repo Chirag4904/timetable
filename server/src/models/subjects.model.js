@@ -104,32 +104,58 @@ async function loadsubjectsData() {
 	});
 }
 
+async function updateSubjectChoices(subjectId, teacherId, prefOrder) {
+	if (prefOrder === 1) {
+		await subjectsDatabase.updateOne(
+			{ id: subjectId },
+			{ $push: { choice1: teacherId } }
+		);
+	} else if (prefOrder === 2) {
+		await subjectsDatabase.updateOne(
+			{ id: subjectId },
+			{ $push: { choice2: teacherId } }
+		);
+	} else if (prefOrder === 3) {
+		await subjectsDatabase.updateOne(
+			{ id: subjectId },
+			{ $push: { choice3: teacherId } }
+		);
+	}
+	console.log("sub saved");
+	return;
+}
+
 async function getAllSubjects(query) {
-    return await subjectsDatabase.aggregate([
-        { $match: query },
-        {
-            $lookup: {
-                from: "allotments",
-                localField: "_id",
-                foreignField: "subject",
-                as: "allotedTeachers",
-                pipeline: [{ $project: { allotedTeachers: 1 } }],
-            },
-        },
-        { $unwind: {path: "$allotedTeachers", preserveNullAndEmptyArrays: true} },
-        { $addFields: { allotedTeachers: {$ifNull: ["$allotedTeachers.allotedTeachers", []]} } },
+	return await subjectsDatabase.aggregate([
+		{ $match: query },
 		{
-            $lookup: {
-                from: "teachers",
-                localField: "allotedTeachers.teacher",
-                foreignField: "_id",
-                as: "teachObj",
-            },
-        },
-    ]);
+			$lookup: {
+				from: "allotments",
+				localField: "_id",
+				foreignField: "subject",
+				as: "allotedTeachers",
+				pipeline: [{ $project: { allotedTeachers: 1 } }],
+			},
+		},
+		{ $unwind: { path: "$allotedTeachers", preserveNullAndEmptyArrays: true } },
+		{
+			$addFields: {
+				allotedTeachers: { $ifNull: ["$allotedTeachers.allotedTeachers", []] },
+			},
+		},
+		{
+			$lookup: {
+				from: "teachers",
+				localField: "allotedTeachers.teacher",
+				foreignField: "_id",
+				as: "teachObj",
+			},
+		},
+	]);
 }
 
 module.exports = {
 	loadsubjectsData,
 	getAllSubjects,
+	updateSubjectChoices,
 };
