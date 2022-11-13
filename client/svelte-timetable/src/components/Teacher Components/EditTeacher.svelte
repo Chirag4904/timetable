@@ -25,6 +25,17 @@
 				practical_hours: allotHours.practicalHrs,
 			});
 			console.log(resp);
+
+			// let isAssigned = false;
+			// const subjectWorkload = resp.data.available_subject_workload;
+			// console.log(subjectWorkload);
+			// if (
+			// 	subjectWorkload.lecture == 0 &&
+			// 	subjectWorkload.tutorial == 0 &&
+			// 	subjectWorkload.practical == 0
+			// ) {
+			// 	isAssigned = true;
+			// }
 			originalHours = allotHours;
 			// allotHours.lectureHrs = ;
 		} catch (err) {
