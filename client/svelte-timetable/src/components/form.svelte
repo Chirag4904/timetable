@@ -1,20 +1,29 @@
 <script>
   import { element } from "svelte/internal";
   import {onMount} from 'svelte'
+  import Subject from "./Subject Components/Subject.svelte";
 
   let name;
   let form;
   let email;
+  let core1;
+  let core2;
+  let core3;
   onMount(()=>{
     form = document.getElementById('form');
     name = document.getElementById('name');
     email = document.getElementById('email');
-    console.log(form);
+    core1 = document.getElementById('p1');
+    core2 = document.getElementById('p2');
+    core3 = document.getElementById('p3');
+
+    // console.log(form);
     form.addEventListener('submit',e=>{
       e.preventDefault();
       
       validateName();
       validateEmail();
+      
     });
 
     name.addEventListener('keydown',(e)=>{
@@ -33,6 +42,7 @@
     
     const setError = (element, message)=> {
       const inputControl = element.parentElement;
+      // console.log(inputControl)
       const errorDisplay = inputControl.querySelector('.error');
 
       errorDisplay.innerText = message;
@@ -44,6 +54,7 @@
 
     const setSuccess = element =>{
       const inputControl = element.parentElement;
+      
       const errorDisplay = inputControl.querySelector('.error');
       
       errorDisplay.innerText = '';
@@ -77,12 +88,47 @@
         setSuccess(email);
       }
     }
-  
 
-    let subjects = ['a','b','c','d'];
-    let pref1;
-    let pref2;
-    let pref3;
+    
+    function handleChange(){
+      
+      if( pref1 == pref2 && pref1 == pref3 )
+      {
+        setError(core1,"All the preferences are the same")
+        setError(core2,"All the preferences are the same")
+        setError(core3, "All the preferences are the same")
+      }
+      else if( pref1 == pref2){
+        
+        setError(core1,"same pref as 2")
+        setError(core2,"same pref as 1")
+        setSuccess(core3)
+      }else if( pref1 == pref3){
+        
+        setError(core1,"same pref as 3")
+        setError(core3,"same pref as 1")
+        setSuccess(core2)
+      }else if( pref2 == pref3){
+        
+        setError(core2,"same pref as 3")
+        setError(core3,"same pref as 2")
+        setSuccess(core1)
+      }
+      else{
+       
+        setSuccess(core1)
+        setSuccess(core2)
+        setSuccess(core3)
+      }
+
+    }
+
+    let subjects = ['a','b','c','d','e','f','g'];
+    
+    
+    let pref1 = subjects[0];
+    let pref2 =  subjects[1];
+    let pref3 = subjects[2];
     let reg =  /^[a-zA-Z]+ [a-zA-Z]+$/;
     var regexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     </script>
@@ -112,36 +158,40 @@
           </div>
      
           
-          <div class="mt-5">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="pref">
+          <div class="mt-5 relative" >
+            <div class="error text-red-600 text-sm absolute -bottom-[20px]" ></div>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="pref" id="core1">
               Core Preference-1
             </label>
-            <select bind:value={pref1} placeholder="Select Pref1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline">
+            <select id="p1" bind:value={pref1} on:change={handleChange} placeholder="Select Pref1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline">
                 {#each subjects as sub}
                     <option value={sub}>
                         {sub}
                     </option>
                 {/each}
         </select>
+        
           </div>
-          <div class="mt-4">
+          <div class="mt-5 relative">
+            <div class="error text-red-600 text-sm absolute -bottom-[20px] " ></div>
             <label class="block text-gray-700 text-sm font-bold mb-2" for="pref">
               Core Preference-2
             </label>
-            <select bind:value={pref2} placeholder="Select Pref1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline">
+            <select id="p2" bind:value={pref2} on:change={handleChange} placeholder="Select Pref1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline">
                 {#each subjects as sub}
-                    <option value={sub}>
+                    <option value={sub} >
                         {sub}
                     </option>
                 {/each}
                 
         </select>
           </div>
-          <div class="mt-4">
+          <div class="mt-5 relative">
+            <div class="error text-red-600 text-sm absolute -bottom-[20px] " ></div>
             <label class="block text-gray-700 text-sm font-bold mb-2" for="pref">
               Core Preference-3
             </label>
-            <select bind:value={pref3} placeholder="Select Pref1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline">
+            <select id="p3" bind:value={pref3} on:change={handleChange} placeholder="Select Pref1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline">
                 {#each subjects as sub}
                     <option value={sub}>
                         {sub}
