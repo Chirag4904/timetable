@@ -34,7 +34,7 @@
 	{#if subjects}
 		<div class="flex gap-x-4 mt-4 ml-2 ">
 			{#each subjects as sub}
-				<Subject {...sub} on:click={() => dispatchSubjectInfo(sub)} />
+				<Subject {...sub} />
 			{/each}
 		</div>
 	{/if}

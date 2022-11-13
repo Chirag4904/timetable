@@ -1,33 +1,33 @@
 <script>
 	import { Router, Route, Link } from "svelte-routing";
+	import { onMount } from "svelte";
 	import Navbar from "./components/Navbar.svelte";
 	import SubjectScreen from "./components/Subject Components/SubjectScreen.svelte";
 	import TeacherScreen from "./components/Teacher Components/TeacherScreen.svelte";
-	import SubjectPref from "./components/Subject Components/SubjectPref.svelte";
 	import SubjectInfo from "./components/Subject Components/SubjectInfo.svelte";
-	$: choice = "subjecs";
-	function handleChoice(e) {
-		choice = e.detail.text;
-	}
-	$: subjectInfo = {};
-	function handleSubjectInfo(e) {
-		subjectInfo = e.detail.subject;
-		console.log(e.detail.subject);
+	import Form from "./components/form.svelte";
+
+	const subjectsUrl = "http://localhost:5000/api/subjects";
+	let subjects;
+	onMount(async function () {
+		await httpGetSubjects();
+	});
+
+	async function httpGetSubjects() {
+		const resp = await fetch(`${subjectsUrl}`);
+
+		const data = await resp.json();
+		subjects = data;
 	}
 </script>
 
 <Router>
 	<body>
 		<Route path="/app">
-			<Navbar on:option={handleChoice} />
-			<!-- {#if choice === "subjects"}
-				<SubjectScreen on:subjectInfo={handleSubjectInfo} />
-			{:else if choice === "teachers"}
-				<TeacherScreen />
-			{/if} -->
+			<Navbar />
 		</Route>
 		<Route path="/app/subjects">
-			<SubjectScreen on:subjectInfo={handleSubjectInfo} />
+			<SubjectScreen />
 		</Route>
 		<Route path="/app/teachers">
 			<TeacherScreen />
@@ -36,6 +36,11 @@
 			<div>
 				<SubjectInfo id={params.id} />
 			</div>
+		</Route>
+		<Route path="/app/form">
+			{#if subjects}
+				<Form incomingSubjects={subjects} />
+			{/if}
 		</Route>
 	</body>
 </Router>
