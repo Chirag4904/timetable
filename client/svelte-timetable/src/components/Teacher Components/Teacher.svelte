@@ -1,5 +1,5 @@
 <script>
-	export let id;
+// 	export let id;
 	export let name;
 	export let isAvailable;
 	export let profilePicture;
