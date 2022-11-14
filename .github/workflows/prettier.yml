@@ -31,7 +31,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: 'npm'
+          # cache: 'npm'
       
       - name: install svelte prettier plugin
         run: npm i prettier-plugin-svelte
