@@ -31,5 +31,4 @@ const allotmentSchema = Schema({
     ],
 });
 
-
-module.exports = mongoose.model("Allotment", allotmentSchema)
+module.exports = mongoose.model("Allotment", allotmentSchema);

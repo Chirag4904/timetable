@@ -1,9 +1,6 @@
 const express = require("express");
 
-const {
-	httpGetAllSubjects,
-	httpUpdateSubjectState,
-} = require("./subjects.controller");
+const { httpGetAllSubjects, httpUpdateSubjectState } = require("./subjects.controller");
 
 const subjectsRouter = express.Router();
 

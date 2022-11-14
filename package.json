@@ -1,17 +1,20 @@
 {
-  "name": "timetable-project",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "server": "npm run watch --prefix server",
-    "client": "npm run build --prefix client/svelte-timetable",
-    "install": "npm i --prefix server && npm i --prefix client/svelte-timetable",
-    "site": "npm run client && npm run server",
-    "dev": "npm run dev --prefix client/svelte-timetable",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+    "name": "timetable-project",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "server": "npm run watch --prefix server",
+        "client": "npm run build --prefix client/svelte-timetable",
+        "install": "npm i --prefix server && npm i --prefix client/svelte-timetable",
+        "site": "npm run client && npm run server",
+        "dev": "npm run dev --prefix client/svelte-timetable",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "prettier-plugin-svelte": "^2.8.0"
+    }
 }

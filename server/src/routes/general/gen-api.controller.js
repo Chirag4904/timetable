@@ -105,10 +105,7 @@ async function commitLTPHandler(req) {
         //     console.warn("DB query returning other teachers as well", element);
         // }
     });
-    if (
-        _teacherWorkload + req.lecture_hours + req.tutorial_hours + req.practical_hours >
-        teach.maxLoad
-    ) {
+    if (_teacherWorkload + req.lecture_hours + req.tutorial_hours + req.practical_hours > teach.maxLoad) {
         throw {
             is_feasible: false,
             message: `exceeded maximum weekly workload! Teacher workload is already at ${_teacherWorkload}hrs!`,
