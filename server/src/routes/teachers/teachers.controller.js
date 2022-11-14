@@ -1,4 +1,4 @@
-const { convertIntObj } = require("../../utils");
+const { convertIntObj } = require("../../utilities/utils");
 const {
 	getAllTeachers,
 	addNewTeacher,
@@ -6,7 +6,7 @@ const {
 
 async function httpGetAllTeachers(req, res) {
 	const query = req.query;
-    const teachers = await getAllTeachers(convertIntObj(query));
+	const teachers = await getAllTeachers(convertIntObj(query));
 	return res.send(teachers);
 }
 
