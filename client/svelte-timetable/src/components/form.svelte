@@ -196,6 +196,7 @@
 		</div>
 		<form
 			id="form"
+			autocomplete="off"
 			class="bg-gradient-to-l from-[#accbee] to-[#e7f0fd] m-auto w-[50%] h-[75%] shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-8"
 		>
 			<div class="mt-4 input-control relative">
@@ -207,6 +208,7 @@
 					id="name"
 					type="text"
 					placeholder="Enter Name"
+					autocomplete="off"
 				/>
 				<div class="error text-red-600 text-sm absolute " />
 			</div>
@@ -218,8 +220,9 @@
 				<input
 					class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 					id="email"
-					type="text"
+					type="email"
 					placeholder="Enter email"
+					autocomplete="off"
 				/>
 
 				<div class="error text-red-600 text-sm absolute" />
