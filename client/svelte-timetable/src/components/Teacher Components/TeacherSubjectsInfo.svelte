@@ -14,7 +14,7 @@
         const resp = await fetch(`${teachersUrl}?id=${teacherId}`);
         const data = await resp.json();
         teacher = data[0];
-        console.log(teacher);
+        // console.log(teacher);
         teacherMongoId = teacher._id;
         allotedSubjects = teacher.allotedSubjects;
     }
@@ -35,7 +35,6 @@
         };
         allotedTeachers.forEach((teacher) => {
             if (teacher.teacher === teacherMongoId) {
-                console.log("udhr");
                 // console.log(teacher);
                 allotment = {
                     subjectName: subject.name,
@@ -54,7 +53,7 @@
 {#if teacher}
     <div class="text-center text-2xl mt-2">{teacher.name}</div>
     {#if allotedSubjects.length > 0}
-        <div class="flex flex-col gap-y-4 mt-4 bg-red-400">
+        <div class="flex flex-col gap-y-4 mt-4">
             {#each allotedSubjects as subject}
                 {#await httpGetAllotedSubjectsInfo(subject.id) then allotment}
                     <div class="bg-yellow-200 ">
@@ -81,11 +80,4 @@
     {:else}
         <div>No subjects alloted</div>
     {/if}
-    <!-- {#await httpGetAllotedSubjectsInfo(teacher.allotedSubjects[0].id) then allotment}
-        {#if allotment}
-            <div>{allotment.lectureHrs}</div>
-        {:else}
-            <div>Not Alloted</div>
-        {/if}
-    {/await} -->
 {/if}
