@@ -53,10 +53,10 @@
 {#if teacher}
     <div class="text-center text-2xl mt-2">{teacher.name}</div>
     {#if allotedSubjects.length > 0}
-        <div class="flex flex-col gap-y-4 mt-4">
+        <div class="flex flex-col gap-y-4 mt-4 w-screen">
             {#each allotedSubjects as subject}
                 {#await httpGetAllotedSubjectsInfo(subject.id) then allotment}
-                    <div class="bg-yellow-200 ">
+                    <div class="bg-yellow-200 m-auto p-4 rounded-md">
                         <div class="flex gap-x-2 ">
                             <div>{allotment.subjectId}</div>
                             <div>{allotment.subjectName}</div>
