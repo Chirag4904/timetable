@@ -10,13 +10,13 @@ const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 
 async function startServer() {
-	await mongoConnect(process.env.MONGODB_URL || "");
-	// await loadTeachersData();
-	// await loadsubjectsData();
+    await mongoConnect(process.env.MONGODB_URL || "");
+    // await loadTeachersData();
+    // await loadsubjectsData();
 
-	server.listen(PORT, () => {
-		console.log(`Server is running on port ${PORT}`);
-	});
+    server.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
 }
 
 startServer();
