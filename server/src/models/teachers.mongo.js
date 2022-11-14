@@ -19,11 +19,9 @@ const teachersSchema = new mongoose.Schema({
 	},
 	email: {
 		type: String,
-		required: true,
 	},
 	contact: {
 		type: String,
-		required: true,
 	},
 	subjects: {
 		type: [subjectSchema],

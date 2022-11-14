@@ -2,12 +2,12 @@
 	import axios from "axios";
 	export let name;
 	export let profilePicture;
-	export let subjects;
+	// export let subjects;
 	export let subjectId;
 	export let allotedTeachers;
 	export let allotHours;
 	let originalHours = allotHours;
-	console.log(originalHours);
+	// console.log(originalHours);
 	$: currentLoad =
 		originalHours.lectureHrs +
 		originalHours.practicalHrs +
@@ -25,6 +25,27 @@
 				practical_hours: allotHours.practicalHrs,
 			});
 			console.log(resp);
+
+			let isAssigned = false;
+			const subjectWorkload = resp.data.available_subject_workload;
+			console.log(subjectWorkload);
+			if (
+				subjectWorkload.lecture == 0 &&
+				subjectWorkload.tutorial == 0 &&
+				subjectWorkload.practical == 0
+			) {
+				isAssigned = true;
+			}
+			const updateSubjectUrl = "http://localhost:5000/api/subjects";
+			try {
+				const resp = await axios.post(updateSubjectUrl, {
+					id: subjectId,
+					isAssigned: isAssigned,
+				});
+				console.log(resp);
+			} catch (err) {
+				console.log(err);
+			}
 			originalHours = allotHours;
 			// allotHours.lectureHrs = ;
 		} catch (err) {
@@ -33,7 +54,7 @@
 		}
 	};
 
-	console.log(allotHours);
+	// console.log(allotHours);
 	function handleLectures(e) {
 		if (e.target.textContent == "+" && allotHours.lectureHrs < 8) {
 			allotHours.lectureHrs += 1;

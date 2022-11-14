@@ -1,87 +1,5 @@
 const subjectsDatabase = require("./subjects.mongo");
-
-const subjects = [
-	{
-		id: "CBCA103",
-		name: "Web Technologies",
-		Programme: "BCA",
-		isAssigned: false,
-		originalStructure: { L: 2, T: 0, P: 4 },
-		credits: 4,
-		lectureBatches: 1,
-		tutLabBatches: 3,
-		totalLecture: 2,
-		totalTutorial: 0,
-		totalPractical: 12,
-		choice1: [1],
-		choice2: [2],
-		choice3: [10, 4, 3],
-	},
-	{
-		id: "CBCA204",
-		name: "Algorithm Design Strategies",
-		Programme: "BCA",
-		isAssigned: false,
-		originalStructure: { L: 3, T: 1, P: 4 },
-		credits: 6,
-		lectureBatches: 1,
-		tutLabBatches: 2,
-		totalLecture: 3,
-		totalTutorial: 2,
-		totalPractical: 8,
-		choice1: [9],
-		choice2: [7, 4, 3],
-		choice3: [8, 6],
-	},
-	{
-		id: "CSET211",
-		name: "Statistical Machine Learning",
-		Programme: "BTECH",
-		isAssigned: true,
-		originalStructure: { L: 3, T: 0, P: 2 },
-		credits: 4,
-		lectureBatches: 2,
-		tutLabBatches: 7,
-		totalLecture: 6,
-		totalTutorial: 0,
-		totalPractical: 14,
-		choice1: [10, 2],
-		choice2: [5],
-		choice3: [7, 1],
-	},
-	{
-		id: "CSET363",
-		name: "Penetration Testing. Auditing and Ethical Hacking",
-		Programme: "BTECH",
-		isAssigned: false,
-		originalStructure: { L: 2, T: 0, P: 2 },
-		credits: 3,
-		lectureBatches: 1,
-		tutLabBatches: 1,
-		totalLecture: 2,
-		totalTutorial: 0,
-		totalPractical: 2,
-		choice1: [4, 3],
-		choice2: [2, 4],
-		choice3: [11],
-	},
-	{
-		id: "CSET452",
-		name: "Software Containerization in DevOps",
-		Programme: "BTECH",
-		isAssigned: false,
-		originalStructure: { L: 2, T: 0, P: 2 },
-		credits: 3,
-		lectureBatches: 1,
-		tutLabBatches: 1,
-		totalLecture: 2,
-		totalTutorial: 0,
-		totalPractical: 2,
-		choice1: [11],
-		choice2: [6, 8, 1],
-		choice3: [9],
-	},
-];
+const s = require("../data/subject_model_data.json");
 
 async function saveSubject(subject) {
 	try {
@@ -99,37 +17,85 @@ async function saveSubject(subject) {
 }
 
 async function loadsubjectsData() {
-	subjects.map(async (subject) => {
-		await saveSubject(subject);
+	s.map(async (sub) => {
+		await addNewSubject(sub);
 	});
 }
 
+async function updateSubjectState(subjectId, state) {
+	console.log("hui");
+	await subjectsDatabase.updateOne(
+		{ id: subjectId },
+		{ $set: { isAssigned: state } }
+	);
+}
+
+async function addNewSubject(subject) {
+	const newSubject = Object.assign(subject, {
+		isAssigned: false,
+		choice1: [],
+		choice2: [],
+		choice3: [],
+	});
+
+	await saveSubject(newSubject);
+
+	console.log("subject save ho gya re bhaya");
+}
+
+async function updateSubjectChoices(subjectId, teacherId, prefOrder) {
+	if (prefOrder === 1) {
+		await subjectsDatabase.updateOne(
+			{ id: subjectId },
+			{ $push: { choice1: teacherId } }
+		);
+	} else if (prefOrder === 2) {
+		await subjectsDatabase.updateOne(
+			{ id: subjectId },
+			{ $push: { choice2: teacherId } }
+		);
+	} else if (prefOrder === 3) {
+		await subjectsDatabase.updateOne(
+			{ id: subjectId },
+			{ $push: { choice3: teacherId } }
+		);
+	}
+	console.log("sub saved");
+	return;
+}
+
 async function getAllSubjects(query) {
-    return await subjectsDatabase.aggregate([
-        { $match: query },
-        {
-            $lookup: {
-                from: "allotments",
-                localField: "_id",
-                foreignField: "subject",
-                as: "allotedTeachers",
-                pipeline: [{ $project: { allotedTeachers: 1 } }],
-            },
-        },
-        { $unwind: {path: "$allotedTeachers", preserveNullAndEmptyArrays: true} },
-        { $addFields: { allotedTeachers: {$ifNull: ["$allotedTeachers.allotedTeachers", []]} } },
+	return await subjectsDatabase.aggregate([
+		{ $match: query },
 		{
-            $lookup: {
-                from: "teachers",
-                localField: "allotedTeachers.teacher",
-                foreignField: "_id",
-                as: "teachObj",
-            },
-        },
-    ]);
+			$lookup: {
+				from: "allotments",
+				localField: "_id",
+				foreignField: "subject",
+				as: "allotedTeachers",
+				pipeline: [{ $project: { allotedTeachers: 1 } }],
+			},
+		},
+		{ $unwind: { path: "$allotedTeachers", preserveNullAndEmptyArrays: true } },
+		{
+			$addFields: {
+				allotedTeachers: { $ifNull: ["$allotedTeachers.allotedTeachers", []] },
+			},
+		},
+		{
+			$lookup: {
+				from: "teachers",
+				localField: "allotedTeachers.teacher",
+				foreignField: "_id",
+				as: "teachObj",
+			},
+		},
+	]);
 }
 
 module.exports = {
 	loadsubjectsData,
 	getAllSubjects,
+	updateSubjectChoices,
+	updateSubjectState,
 };

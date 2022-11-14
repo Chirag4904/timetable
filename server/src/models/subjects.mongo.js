@@ -10,7 +10,7 @@ const subjectsSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	Programme: {
+	programme: {
 		type: String,
 		required: true,
 	},
@@ -21,7 +21,7 @@ const subjectsSchema = new mongoose.Schema({
 		type: Map,
 		required: true,
 	},
-	credis: {
+	Credits: {
 		type: Number,
 		required: true,
 	},
