@@ -31,10 +31,28 @@
 	<div in:fly={{ x: 200, duration: 2000 }} class="text-center mt-2 text-2xl">
 		S U B J E C T S
 	</div>
+	<div class="flex gap-x-4 pl-2">
+		<div class="flex gap-x-2 items-center">
+			<div class="w-5 h-5 bg-red-200 rounded-sm" />
+			<div>No teachers available</div>
+		</div>
+		<div class="flex gap-x-2 items-center">
+			<div class="w-5 h-5 bg-green-200 rounded-sm" />
+			<div>Subject Alloted</div>
+		</div>
+		<div class="flex gap-x-2 items-center">
+			<div class="w-5 h-5 bg-yellow-200 rounded-sm" />
+			<div>Subject to be alloted</div>
+		</div>
+	</div>
 	{#if subjects}
-		<div class="flex gap-x-4 mt-4 ml-2 ">
+		<div class="flex gap-4 mt-3 pl-2 flex-wrap">
 			{#each subjects as sub}
-				<Subject {...sub} />
+				{#if sub.choice1.length == 0 && sub.choice2.length == 0 && sub.choice3.length == 0}
+					<Subject id={sub.id} isAssigned={sub.isAssigned} isTaken={false} />
+				{:else}
+					<Subject id={sub.id} isAssigned={sub.isAssigned} />
+				{/if}
 			{/each}
 		</div>
 	{/if}

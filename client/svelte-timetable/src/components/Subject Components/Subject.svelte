@@ -3,6 +3,7 @@
 
 	export let id;
 	export let isAssigned;
+	export let isTaken = true;
 </script>
 
 <Router url="/">
@@ -10,6 +11,8 @@
 		<div
 			class="relative w-24 h-14 rounded-md p-2 {isAssigned
 				? 'bg-green-200'
+				: isTaken
+				? 'bg-yellow-200'
 				: 'bg-red-200'}"
 		>
 			<div class="absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4">
