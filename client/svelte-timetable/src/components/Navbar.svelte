@@ -11,21 +11,24 @@
 		<div
 			class="flex justify-around w-[83%] ml-[17%] items-center gap-x-2 mt-8 "
 		>
+        <Link to="subjects" class="w-6/12">
 			<div
-				class="cursor-pointer w-6/12 h-80 bg-zinc-300 flex justify-center items-center rounded-lg"
+				class="cursor-pointer h-80 bg-zinc-300 flex justify-center items-center rounded-lg"
 			>
-				<Link to="subjects">
-					<div class="text-[35px] italic">Subjects</div>
-				</Link>
-			</div>
 
-			<div
-				class="cursor-pointer w-6/12 h-80 bg-zinc-300 flex justify-center items-center rounded-lg"
-			>
-				<Link to="teachers">
-					<div class="text-[35px] italic">Teachers</div>
-				</Link>
+					<div class="text-[35px] italic">Subjects</div>
+
 			</div>
+        </Link>
+        <Link to="teachers" class="w-6/12">
+			<div
+				class="cursor-pointer  h-80 bg-zinc-300 flex justify-center items-center rounded-lg"
+			>
+
+					<div class="text-[35px] italic">Teachers</div>
+
+			</div>
+        </Link>
 
 			<div
 				class="absolute top-[5%] left-2 w-[15%] h-[90%] bg-gradient-to-l from-[#bdc3c7] to-[ #2c3e50] rounded-lg"
