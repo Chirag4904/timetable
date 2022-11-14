@@ -26,6 +26,15 @@ jobs:
         with:
           # Make sure the actual branch is checked out when running on pull requests
           ref: ${{ github.head_ref }}
+      
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      
+      - name: install svelte prettier plugin
+        run: npm i prettier-plugin-svelte
 
       - name: Prettify code
         uses: actionsx/prettier@v2
