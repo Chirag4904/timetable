@@ -19,11 +19,6 @@ app.use((err, req, res, next) => {
 	next();
 });
 
-// app.use(
-// 	express.static(
-// 		path.join(__dirname, "..", "..", "client", "svelte-timetable", "dist")
-// 	)
-// );
 
 app.use(
 	cors({
@@ -34,17 +29,4 @@ app.use("/api/teachers", teachersRouter);
 app.use("/api/subjects", subjectsRouter);
 app.use("/api/general", genAPIRouter);
 
-// app.get("/*", (req, res) => {
-// 	res.sendFile(
-// 		path.join(
-// 			__dirname,
-// 			"..",
-// 			"..",
-// 			"client",
-// 			"svelte-timetable",
-// 			"dist",
-// 			"index.html"
-// 		)
-// 	);
-// });
 module.exports = app;
