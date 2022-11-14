@@ -1,4 +1,4 @@
-name: Format code uding Prettier
+name: Format code using Prettier
 
 # This action works with pull requests and pushes
 on:
