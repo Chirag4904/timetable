@@ -1,5 +1,5 @@
 <script>
-    import { Router, Route, Link } from "svelte-routing";
+    import { Router, Route, Link, navigate } from "svelte-routing";
     import { onMount } from "svelte";
     import Navbar from "./components/Navbar.svelte";
     import SubjectScreen from "./components/Subject Components/SubjectScreen.svelte";
@@ -11,6 +11,10 @@
     const subjectsUrl = "http://localhost:5000/api/subjects";
     let subjects;
     onMount(async function () {
+        // temporary routing to app if user goes to '/' path
+        if (window.location.pathname === "/") {
+            navigate("/app", { replace: true });
+        }
         await httpGetSubjects();
     });
 
