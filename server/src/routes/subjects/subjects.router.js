@@ -8,6 +8,6 @@ const {
 const subjectsRouter = express.Router();
 
 subjectsRouter.get("/", httpGetAllSubjects);
-// subjectsRouter.post("/status", httpUpdateSubjectState)
+subjectsRouter.post("/", httpUpdateSubjectState);
 
 module.exports = subjectsRouter;

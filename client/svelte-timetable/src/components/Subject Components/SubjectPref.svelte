@@ -17,7 +17,7 @@
 	// $: allotHours;
 
 	const allot = (tid) => {
-		console.log(tid);
+		// console.log(tid);
 		try {
 			for (let i = 0; i < allotedTeachers.length; i++) {
 				if (allotedTeachers[i].teacher == tid) {
@@ -51,13 +51,15 @@
 	</div>
 	<div class="">
 		<div>Number 1 preference</div>
-		<div class="flex gap-x-4">
+		<div class="flex gap-4 flex-wrap">
 			{#each pref1 as teacher}
 				{#await getTeacher(teacher) then val}
 					{#await allot(val["_id"]) then allotHours}
 						{#if allotHours}
 							<EditTeacher
-								{...val}
+								name={val.name}
+								profilePicture={val.profilePicture}
+								id={val.id}
 								{subjectId}
 								{allotedTeachers}
 								{allotHours}
@@ -71,13 +73,15 @@
 
 	<div class="">
 		<div>Number 2 preferences</div>
-		<div class="flex gap-x-4">
+		<div class="flex gap-4 flex-wrap">
 			{#each pref2 as teacher}
 				{#await getTeacher(teacher) then val}
 					{#await allot(val["_id"]) then allotHours}
 						{#if allotHours}
 							<EditTeacher
-								{...val}
+								name={val.name}
+								profilePicture={val.profilePicture}
+								id={val.id}
 								{subjectId}
 								{allotedTeachers}
 								{allotHours}
@@ -91,13 +95,15 @@
 
 	<div class="">
 		<div>Number 3 preferences</div>
-		<div class="flex gap-x-4">
+		<div class="flex gap-4 flex-wrap">
 			{#each pref3 as teacher}
 				{#await getTeacher(teacher) then val}
 					{#await allot(val["_id"]) then allotHours}
 						{#if allotHours}
 							<EditTeacher
-								{...val}
+								name={val.name}
+								profilePicture={val.profilePicture}
+								id={val.id}
 								{subjectId}
 								{allotedTeachers}
 								{allotHours}
