@@ -22,9 +22,13 @@
 	<div class="text-center text-2xl ">T E A C H E R S</div>
 
 	{#if teachers}
-		<div class="flex gap-x-2 mt-4">
+		<div class="flex gap-x-2 mt-4 flex-wrap">
 			{#each teachers as teacher}
-				<Teacher {...teacher} />
+				<Teacher
+					name={teacher.name}
+					profilePicture={teacher.profilePicture}
+					isAvailable={teacher.isAvailable}
+				/>
 			{/each}
 		</div>
 	{/if}
