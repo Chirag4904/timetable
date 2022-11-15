@@ -33,11 +33,7 @@ async function commitLTPHandler(req) {
 
     // retrieve an allotment document, if it exists otherwis we create our own here
     const subject = await Subject.findOne({ id: req.subject_id.toUpperCase() });
-    let lecHours = subject.originalStructure.get("L") * subject.lectureBatches;
-    let tutHours = subject.originalStructure.get("T") * subject.tutLabBatches;
-    let labHours = subject.originalStructure.get("P") * subject.tutLabBatches;
-    let total = lecHours + tutHours + labHours;
-    console.log("total hours", total);
+
     const teach = await teacher.findOne({ id: req.teacher_id });
 
     if (!subject) {

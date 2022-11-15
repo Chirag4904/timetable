@@ -21,12 +21,10 @@
         try {
             for (let i = 0; i < allotedTeachers.length; i++) {
                 if (allotedTeachers[i].teacher == tid) {
-                    console.log("hua", i);
+                    // console.log("hua", i);
                     // allotHours = allotedTeachers[i];
                     // console.log(allot Hours);
                     return allotedTeachers[i];
-                } else {
-                    console.log("nahi hua", i);
                 }
             }
         } catch (err) {
