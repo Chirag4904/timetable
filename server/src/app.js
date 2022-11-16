@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+//test for project board
 
 const teachersRouter = require("./routes/teachers/teachers.router");
 const subjectsRouter = require("./routes/subjects/subjects.router");
