@@ -1,0 +1,13 @@
+api/backend:
+- server/src/**/*
+
+database:
+- server/src/**/*.mongo.js
+- server/src/**/*.model.js
+
+ui/frontend:
+- client/svelte-timetable/src/**/*.svelte
+
+actual devops:
+- /*.yml
+- Dockerfile
