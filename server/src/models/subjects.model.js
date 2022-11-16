@@ -1,6 +1,12 @@
 const subjectsDatabase = require("./subjects.mongo");
-const s = require("../data/subject_model_data.json");
 
+let subjects = [];
+
+try {
+    subjects = require("../data/subject_model_data.json");
+} catch (e) {
+    console.log("Error: Subject data file is not present");
+}
 async function saveSubject(subject) {
     try {
         await subjectsDatabase.findOneAndUpdate(
@@ -17,13 +23,12 @@ async function saveSubject(subject) {
 }
 
 async function loadsubjectsData() {
-    s.map(async (sub) => {
+    subjects.map(async (sub) => {
         await addNewSubject(sub);
     });
 }
 
 async function updateSubjectState(subjectId, state) {
-    console.log("hui");
     await subjectsDatabase.updateOne({ id: subjectId }, { $set: { isAssigned: state } });
 }
 
@@ -36,8 +41,6 @@ async function addNewSubject(subject) {
     });
 
     await saveSubject(newSubject);
-
-    console.log("subject save ho gya re bhaya");
 }
 
 async function updateSubjectChoices(subjectId, teacherId, prefOrder) {
