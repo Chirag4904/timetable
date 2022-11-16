@@ -169,6 +169,7 @@
             alert("Form submitted successfully");
         } else {
             alert("Form not submitted");
+            console.log("test");
         }
     }
     let pref1;
