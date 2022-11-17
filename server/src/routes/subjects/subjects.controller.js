@@ -3,8 +3,14 @@ const { getAllSubjects, updateSubjectState } = require("../../models/subjects.mo
 
 async function httpGetAllSubjects(req, res) {
     const query = req.query;
-    const subjects = await getAllSubjects(convertIntObj(query));
-    return res.send(subjects);
+    try {
+        const subjects = await getAllSubjects(convertIntObj(query));
+        return res.send(subjects);
+    } catch (e) {
+        return res
+            .status(400)
+            .send({ erro: true, error_desc: { query: JSON.stringify(query), msg: e } });
+    }
 }
 
 async function httpUpdateSubjectState(req, res) {
