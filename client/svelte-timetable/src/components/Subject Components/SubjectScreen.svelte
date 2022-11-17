@@ -32,7 +32,9 @@
         S U B J E C T S
     </div> -->
     <div class="flex gap-x-4 pl-2 mt-[20px] mb-[10px]">
-        <div class="title text-[35px] ml-[30px] mr-[15px] font-bold"> S U B J E C T S</div>
+        <div class="title text-[35px] ml-[30px] mr-[15px] font-bold">
+            S U B J E C T S
+        </div>
         <div class="flex gap-x-2 items-center">
             <div class="w-5 h-5 bg-red-400 rounded-sm" />
             <div>No teachers available</div>

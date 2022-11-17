@@ -4,7 +4,6 @@
     export let id;
     export let isAssigned;
     export let isTaken = true;
-
 </script>
 
 <Router url="/">
@@ -15,14 +14,19 @@
                 ? 'bg-green-400'
                 : isTaken
                 ? 'bg-yellow-400'
-                : 'bg-red-400'}">
-
-                    <img src="../../src/assets/stick.png" alt="" class="object-cover w-64 h-40 pt-0 rounded-l">
-                    <div class="title text-[20px] mt-[5px] ml-[10px] mb-[5px] ">Subject Name</div>
-                    <div class="title text-[20px] mt-[5px] ml-[10px] mb-[5px]">{id}</div>
-
-
-
+                : 'bg-red-400'}"
+        >
+            <img
+                src="../../src/assets/stick.png"
+                alt=""
+                class="object-cover w-64 h-40 pt-0 rounded-l"
+            />
+            <div class="title text-[20px] mt-[5px] ml-[10px] mb-[5px] ">
+                Subject Name
+            </div>
+            <div class="title text-[20px] mt-[5px] ml-[10px] mb-[5px]">
+                {id}
+            </div>
         </div>
     </Link>
 </Router>
