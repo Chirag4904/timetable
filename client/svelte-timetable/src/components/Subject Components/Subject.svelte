@@ -3,6 +3,7 @@
 
     export let id;
     export let isAssigned;
+    export let name;
     export let isTaken = true;
 </script>
 
@@ -21,8 +22,8 @@
                 alt=""
                 class="object-cover w-64 h-40 pt-0 rounded-l"
             />
-            <div class="title text-[20px] mt-[5px] ml-[10px] mb-[5px] ">
-                Subject Name
+            <div class="title text-[20px] mt-[5px] ml-[10px] mb-[5px] truncate">
+                {name}
             </div>
             <div class="title text-[20px] mt-[5px] ml-[10px] mb-[5px]">
                 {id}
