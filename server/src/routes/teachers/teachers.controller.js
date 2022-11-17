@@ -8,9 +8,7 @@ async function httpGetAllTeachers(req, res) {
         return res.send(teachers);
     } catch (e) {
         console.error(e);
-        return res
-            .status(400)
-            .send({ error: true, error_desc: { query: JSON.stringify(query), msg: e } });
+        return res.status(400).send({ error: true, error_desc: { query: JSON.stringify(query), msg: e } });
     }
 }
 
