@@ -1,7 +1,9 @@
 function convertIntObj(obj) {
     const res = {};
     for (const key in obj) {
-        if (typeof obj[key] === "object") {
+        if (Array.isArray(obj[key])) {
+            res[key] = obj[key].map(convertIntObj);
+        } else if (typeof obj[key] === "object") {
             res[key] = convertIntObj(obj[key]);
         } else {
             const parsed = parseInt(obj[key]);
