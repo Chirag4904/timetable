@@ -46,12 +46,15 @@ async function addNewSubject(subject) {
 async function updateSubjectChoices(subjectId, teacherId, prefOrder) {
     if (prefOrder === 1) {
         await subjectsDatabase.updateOne({ id: subjectId }, { $push: { choice1: teacherId } });
+        console.log("pref1");
     } else if (prefOrder === 2) {
         await subjectsDatabase.updateOne({ id: subjectId }, { $push: { choice2: teacherId } });
+        console.log("pref2");
     } else if (prefOrder === 3) {
         await subjectsDatabase.updateOne({ id: subjectId }, { $push: { choice3: teacherId } });
+        console.log("pref3");
     }
-    console.log("sub saved");
+    // console.log("sub saved");
     return;
 }
 

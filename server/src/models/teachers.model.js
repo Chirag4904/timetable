@@ -1,4 +1,5 @@
 const teachersDatabase = require("./teachers.mongo");
+const { uuid } = require("uuidv4");
 const { updateSubjectChoices } = require("./subjects.model");
 let teachers = [];
 
@@ -68,10 +69,11 @@ async function getLatestTeacherId() {
 
 async function addNewTeacher(teacher) {
     if (teacher.id === undefined) {
-        teacher.id = (await getLatestTeacherId()) + 1;
+        teacher.id = uuid();
     }
+    console.log(typeof teacher.id);
     const randomPic = Math.floor(Math.random() * profilePicUrls.length);
-    // const newTeacherId = (await getLatestTeacherId()) + 1;
+
     const newTeacher = Object.assign(teacher, {
         // id: newTeacherId,
         isAssigned: false,
@@ -86,8 +88,11 @@ async function addNewTeacher(teacher) {
     console.log(resp);
 
     console.log("subject chlega");
-    teacher.subjects.forEach((sub) => {
+    teacher.electiveSubjects.forEach((sub) => {
         console.log(sub.subjectId);
+        updateSubjectChoices(sub.subjectId, teacher.id, sub.prefOrder);
+    });
+    teacher.coreSubjects.forEach((sub) => {
         updateSubjectChoices(sub.subjectId, teacher.id, sub.prefOrder);
     });
 }

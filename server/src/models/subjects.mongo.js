@@ -14,6 +14,14 @@ const subjectsSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    courseType: {
+        type: String,
+        required: true,
+    },
+    courseSubType: {
+        type: String,
+        required: true,
+    },
     isAssigned: {
         type: Boolean,
     },
@@ -46,15 +54,15 @@ const subjectsSchema = new mongoose.Schema({
         required: true,
     },
     choice1: {
-        type: Array,
+        type: [String],
         required: true,
     },
     choice2: {
-        type: Array,
+        type: [String],
         required: true,
     },
     choice3: {
-        type: Array,
+        type: [String],
         required: true,
     },
 });

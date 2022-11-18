@@ -7,9 +7,14 @@ const subjectSchema = new mongoose.Schema({
     P: Number,
     prefOrder: Number,
 });
+
+const modePreferenceSchema = new mongoose.Schema({
+    mode: String,
+    prefOrder: Number,
+});
 const teachersSchema = new mongoose.Schema({
     id: {
-        type: Number,
+        type: String,
         required: true,
         unique: true,
     },
@@ -23,8 +28,16 @@ const teachersSchema = new mongoose.Schema({
     contact: {
         type: String,
     },
-    subjects: {
+    electiveSubjects: {
         type: [subjectSchema],
+        required: true,
+    },
+    coreSubjects: {
+        type: [subjectSchema],
+        required: true,
+    },
+    modePreference: {
+        type: [modePreferenceSchema],
         required: true,
     },
     maxLoad: {
