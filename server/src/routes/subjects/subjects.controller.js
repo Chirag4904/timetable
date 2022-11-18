@@ -1,5 +1,5 @@
 const { convertIntObj } = require("../../utilities/utils");
-const { getAllSubjects, updateSubjectState } = require("../../models/subjects.model");
+const { getAllSubjects, updateSubjectState, addTeacherToSubject } = require("../../models/subjects.model");
 
 async function httpGetAllSubjects(req, res) {
     const query = req.query;
@@ -21,7 +21,16 @@ async function httpUpdateSubjectState(req, res) {
     return res.send("ok");
 }
 
+async function httpAddTeacherToSubject(req, res) {
+    const data = req.body;
+    console.log(data);
+    // #TODO validation
+    await addTeacherToSubject(data.teacherId, data.subjectId);
+    return res.send("done");
+}
+
 module.exports = {
     httpGetAllSubjects,
     httpUpdateSubjectState,
+    httpAddTeacherToSubject,
 };

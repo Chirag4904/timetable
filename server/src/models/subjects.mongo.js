@@ -57,6 +57,10 @@ const subjectsSchema = new mongoose.Schema({
         type: Array,
         required: true,
     },
+    manualTeachers: {
+        type: Array,
+        required: true,
+    },
 });
 
 module.exports = mongoose.model("Subject", subjectsSchema);
