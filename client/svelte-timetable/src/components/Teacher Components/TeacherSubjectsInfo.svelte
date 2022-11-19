@@ -1,6 +1,7 @@
 <script>
     import axios from "axios";
     import { onMount } from "svelte";
+    import DropDown from "./DropDown.svelte";
     const teachersUrl = "http://localhost:5000/api/teachers";
     let teacher;
     export let teacherId;
@@ -14,7 +15,7 @@
         const resp = await fetch(`${teachersUrl}?id=${teacherId}`);
         const data = await resp.json();
         teacher = data[0];
-        // console.log(teacher);
+        console.log(teacher);
         teacherMongoId = teacher._id;
         allotedSubjects = teacher.allotedSubjects;
     }
@@ -51,33 +52,41 @@
 </script>
 
 {#if teacher}
-    <div class="text-center text-2xl mt-2">{teacher.name}</div>
-    {#if allotedSubjects.length > 0}
-        <div class="flex flex-col gap-y-4 mt-4 w-screen">
-            {#each allotedSubjects as subject}
-                {#await httpGetAllotedSubjectsInfo(subject.id) then allotment}
-                    <div class="bg-yellow-200 m-auto p-4 rounded-md">
-                        <div class="flex gap-x-2 ">
-                            <div>{allotment.subjectId}</div>
-                            <div>{allotment.subjectName}</div>
-                        </div>
-                        <div class="flex gap-x-2">
-                            <div>Lecture Hours</div>
-                            <div>{allotment.lectureHrs}</div>
-                        </div>
-                        <div class="flex gap-x-2">
-                            <div>Tutorial Hours</div>
-                            <div>{allotment.tutorialHrs}</div>
-                        </div>
-                        <div class="flex gap-x-2">
-                            <div>practicalHrs Hours</div>
-                            <div>{allotment.practicalHrs}</div>
-                        </div>
+    <div class="flex w-screen">
+        <div class=" w-[15%] h-screen bg-[#002254] rounded-r-lg">
+            <div class="w-full">
+                <div class="text-center flex-col gap-y-10 mt-20">
+                    <img
+                        src="https://thumbs.dreamstime.com/b/happy-smiling-geek-hipster-beard-man-cool-avatar-geek-man-avatar-104871313.jpg"
+                        alt=""
+                        class="rounded-full h-32 w-32 bg-[#002254] m-auto"
+                    />
+                    <div
+                        class="text-center text-white text-[30px] pt-10 font-bold"
+                    >
+                        {teacher.name}
                     </div>
-                {/await}
-            {/each}
+                    <div class="text-center text-white text-sm pt-2 ">
+                        {teacher.email}
+                    </div>
+                </div>
+            </div>
         </div>
-    {:else}
-        <div>No subjects alloted</div>
-    {/if}
+        {#if allotedSubjects.length > 0}
+            <div
+                class="card relative w-[85%]  rounded-md m-10 p-5 shadow-[0_9px_17px_-6px_rgba(0,0,0,0.2)] "
+            >
+                <div class="text-[20px] pl-5 pb-5 font-semibold">
+                    Subjects Alloted
+                </div>
+                {#each allotedSubjects as subject}
+                    {#await httpGetAllotedSubjectsInfo(subject.id) then allotment}
+                        <DropDown {allotment} />
+                    {/await}
+                {/each}
+            </div>
+        {:else}
+            <div class="m-20 text-[25px] font-bold">No subjects alloted</div>
+        {/if}
+    </div>
 {/if}
