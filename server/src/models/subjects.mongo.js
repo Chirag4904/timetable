@@ -61,7 +61,7 @@ const subjectsSchema = new mongoose.Schema({
         type: Array,
         required: true,
     },
-    remainingHours: new mongoose.Schema({
+    allotedHours: new mongoose.Schema({
         lecture: {
             type: Number,
             default: 0,
