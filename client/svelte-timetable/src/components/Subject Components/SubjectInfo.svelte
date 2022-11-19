@@ -37,7 +37,7 @@
 </script>
 
 {#if subject}
-    <div class="bg-gray-100">
+    <div class="bg-gray-100 h-screen">
         <div class="">
             <SubjectPref
                 subjectId={subject.id}
@@ -50,7 +50,14 @@
             />
         </div>
         <div class="w-full mt-4">
-            <AddTeacher subjectId={id} on:teacherAdded={handleTeacherAdded} />
+            <AddTeacher
+                subjectId={id}
+                on:teacherAdded={handleTeacherAdded}
+                pref1={subject.choice1}
+                pref2={subject.choice2}
+                pref3={subject.choice3}
+                {manualTeachers}
+            />
         </div>
     </div>
 {/if}

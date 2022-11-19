@@ -5,6 +5,10 @@
     const subjectsUrl = "http://localhost:5000/api/subjects";
 
     export let subjectId;
+    export let pref1;
+    export let pref2;
+    export let pref3;
+    export let manualTeachers;
     let teachers;
 
     import { createEventDispatcher } from "svelte";
@@ -30,6 +34,15 @@
 
     async function handleAddTeacher() {
         try {
+            if (
+                pref1.includes(selectedTeacher) ||
+                pref2.includes(selectedTeacher) ||
+                pref3.includes(selectedTeacher) ||
+                manualTeachers.includes(selectedTeacher)
+            ) {
+                alert("Teacher already exists");
+                return;
+            }
             const resp = await axios.post(`${subjectsUrl}/addTeacher`, {
                 subjectId: subjectId,
                 teacherId: selectedTeacher,
