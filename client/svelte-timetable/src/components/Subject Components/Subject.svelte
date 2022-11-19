@@ -22,10 +22,14 @@
                 alt=""
                 class="object-cover w-64 h-40 pt-0 rounded-l"
             />
-            <div class="title text-[15px] mt-[5px] ml-[10px] mb-[5px] truncate font-bold">
+            <div
+                class="title text-[15px] mt-[5px] ml-[10px] mb-[5px] truncate font-bold"
+            >
                 {name}
             </div>
-            <div class="title text-[18px] mt-[5px] ml-[10px] mb-[5px] font-bold">
+            <div
+                class="title text-[18px] mt-[5px] ml-[10px] mb-[5px] font-bold"
+            >
                 {id}
             </div>
         </div>

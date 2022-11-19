@@ -1,8 +1,7 @@
 <script>
-
     import axios from "axios";
     import { onMount } from "svelte";
-    import DropDown from './DropDown.svelte';
+    import DropDown from "./DropDown.svelte";
     const teachersUrl = "http://localhost:5000/api/teachers";
     let teacher;
     export let teacherId;
@@ -53,30 +52,41 @@
 </script>
 
 {#if teacher}
-
-<div class="flex w-screen">
-<div
-class=" w-[15%] h-screen bg-[#002254] rounded-r-lg"
->
-<div class="w-full">
-    <div class="text-center flex-col gap-y-10 mt-20">
-        <img src="https://thumbs.dreamstime.com/b/happy-smiling-geek-hipster-beard-man-cool-avatar-geek-man-avatar-104871313.jpg" alt="" class="rounded-full h-32 w-32 bg-[#002254] m-auto"/>
-        <div class="text-center text-white text-[30px] pt-10 font-bold">{teacher.name}</div>
-        <div class="text-center text-white text-sm pt-2 ">{teacher.email}</div>
-    </div>
-    </div>
-</div>
-    {#if allotedSubjects.length > 0}
-        <div class="card relative w-[85%]  rounded-md m-10 p-5 shadow-[0_9px_17px_-6px_rgba(0,0,0,0.2)] ">
-            <div class="text-[20px] pl-5 pb-5 font-semibold">Subjects Alloted</div>
+    <div class="flex w-screen">
+        <div class=" w-[15%] h-screen bg-[#002254] rounded-r-lg">
+            <div class="w-full">
+                <div class="text-center flex-col gap-y-10 mt-20">
+                    <img
+                        src="https://thumbs.dreamstime.com/b/happy-smiling-geek-hipster-beard-man-cool-avatar-geek-man-avatar-104871313.jpg"
+                        alt=""
+                        class="rounded-full h-32 w-32 bg-[#002254] m-auto"
+                    />
+                    <div
+                        class="text-center text-white text-[30px] pt-10 font-bold"
+                    >
+                        {teacher.name}
+                    </div>
+                    <div class="text-center text-white text-sm pt-2 ">
+                        {teacher.email}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {#if allotedSubjects.length > 0}
+            <div
+                class="card relative w-[85%]  rounded-md m-10 p-5 shadow-[0_9px_17px_-6px_rgba(0,0,0,0.2)] "
+            >
+                <div class="text-[20px] pl-5 pb-5 font-semibold">
+                    Subjects Alloted
+                </div>
                 {#each allotedSubjects as subject}
                     {#await httpGetAllotedSubjectsInfo(subject.id) then allotment}
-                        <DropDown {allotment}/>
+                        <DropDown {allotment} />
                     {/await}
                 {/each}
-        </div>
-    {:else}
-        <div class="m-20 text-[25px] font-bold">No subjects alloted</div>
-    {/if}
-</div>
+            </div>
+        {:else}
+            <div class="m-20 text-[25px] font-bold">No subjects alloted</div>
+        {/if}
+    </div>
 {/if}
