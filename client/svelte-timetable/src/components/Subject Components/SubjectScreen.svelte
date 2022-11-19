@@ -51,7 +51,7 @@
     {#if subjects}
         <div class="flex gap-4 mt-3 pl-2 flex-wrap">
             {#each subjects as sub}
-                {#if sub.choice1.length == 0 && sub.choice2.length == 0 && sub.choice3.length == 0}
+                {#if sub.choice1.length == 0 && sub.choice2.length == 0 && sub.choice3.length == 0 && sub.manualTeachers.length == 0}
                     <Subject
                         id={sub.id}
                         name={sub.name}

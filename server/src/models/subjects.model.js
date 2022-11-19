@@ -38,6 +38,7 @@ async function addNewSubject(subject) {
         choice1: [],
         choice2: [],
         choice3: [],
+        manualTeachers: [],
     });
 
     await saveSubject(newSubject);
@@ -45,14 +46,18 @@ async function addNewSubject(subject) {
 
 async function updateSubjectChoices(subjectId, teacherId, prefOrder) {
     if (prefOrder === 1) {
-        await subjectsDatabase.updateOne({ id: subjectId }, { $push: { choice1: teacherId } });
+        await subjectsDatabase.updateOne({ id: subjectId }, { $addToSet: { choice1: teacherId } });
     } else if (prefOrder === 2) {
-        await subjectsDatabase.updateOne({ id: subjectId }, { $push: { choice2: teacherId } });
+        await subjectsDatabase.updateOne({ id: subjectId }, { $addToSet: { choice2: teacherId } });
     } else if (prefOrder === 3) {
-        await subjectsDatabase.updateOne({ id: subjectId }, { $push: { choice3: teacherId } });
+        await subjectsDatabase.updateOne({ id: subjectId }, { $addToSet: { choice3: teacherId } });
     }
     console.log("sub saved");
     return;
+}
+
+async function addTeacherToSubject(teacherId, subjectId) {
+    await subjectsDatabase.updateOne({ id: subjectId }, { $addToSet: { manualTeachers: teacherId } });
 }
 
 async function getAllSubjects(query) {
@@ -89,4 +94,5 @@ module.exports = {
     getAllSubjects,
     updateSubjectChoices,
     updateSubjectState,
+    addTeacherToSubject,
 };

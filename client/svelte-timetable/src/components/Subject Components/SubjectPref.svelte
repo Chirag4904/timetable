@@ -7,6 +7,8 @@
     export let subjectId;
     export let subjectName;
     export let allotedTeachers;
+    export let manualTeachers;
+
     async function getTeacher(candidate) {
         const resp = await fetch(`${teachersUrl}/?id=${candidate}`);
         const data = await resp.json();
@@ -47,32 +49,11 @@
         <div>-</div>
         <div>{subjectName}</div>
     </div>
-    <div class="">
-        <div>Number 1 preference</div>
-        <div class="flex gap-4 flex-wrap">
-            {#each pref1 as teacher}
-                {#await getTeacher(teacher) then val}
-                    {#await allot(val["_id"]) then allotHours}
-                        {#if allotHours}
-                            <EditTeacher
-                                name={val.name}
-                                profilePicture={val.profilePicture}
-                                id={val.id}
-                                {subjectId}
-                                {allotedTeachers}
-                                {allotHours}
-                            />
-                        {/if}
-                    {/await}
-                {/await}
-            {/each}
-        </div>
-    </div>
 
-    <div class="">
-        <div>Number 2 preferences</div>
+    {#if manualTeachers.length > 0}
+        <div>Manually Added Teachers</div>
         <div class="flex gap-4 flex-wrap">
-            {#each pref2 as teacher}
+            {#each manualTeachers as teacher}
                 {#await getTeacher(teacher) then val}
                     {#await allot(val["_id"]) then allotHours}
                         {#if allotHours}
@@ -89,27 +70,75 @@
                 {/await}
             {/each}
         </div>
-    </div>
+    {/if}
+    {#if pref1.length > 0}
+        <div class="">
+            <div>Number 1 preference</div>
+            <div class="flex gap-4 flex-wrap">
+                {#each pref1 as teacher}
+                    {#await getTeacher(teacher) then val}
+                        {#await allot(val["_id"]) then allotHours}
+                            {#if allotHours}
+                                <EditTeacher
+                                    name={val.name}
+                                    profilePicture={val.profilePicture}
+                                    id={val.id}
+                                    {subjectId}
+                                    {allotedTeachers}
+                                    {allotHours}
+                                />
+                            {/if}
+                        {/await}
+                    {/await}
+                {/each}
+            </div>
+        </div>
+    {/if}
 
-    <div class="">
-        <div>Number 3 preferences</div>
-        <div class="flex gap-4 flex-wrap">
-            {#each pref3 as teacher}
-                {#await getTeacher(teacher) then val}
-                    {#await allot(val["_id"]) then allotHours}
-                        {#if allotHours}
-                            <EditTeacher
-                                name={val.name}
-                                profilePicture={val.profilePicture}
-                                id={val.id}
-                                {subjectId}
-                                {allotedTeachers}
-                                {allotHours}
-                            />
-                        {/if}
+    {#if pref2.length > 0}
+        <div class="">
+            <div>Number 2 preferences</div>
+            <div class="flex gap-4 flex-wrap">
+                {#each pref2 as teacher}
+                    {#await getTeacher(teacher) then val}
+                        {#await allot(val["_id"]) then allotHours}
+                            {#if allotHours}
+                                <EditTeacher
+                                    name={val.name}
+                                    profilePicture={val.profilePicture}
+                                    id={val.id}
+                                    {subjectId}
+                                    {allotedTeachers}
+                                    {allotHours}
+                                />
+                            {/if}
+                        {/await}
                     {/await}
-                {/await}
-            {/each}
+                {/each}
+            </div>
         </div>
-    </div>
+    {/if}
+    {#if pref3.length > 0}
+        <div class="">
+            <div>Number 3 preferences</div>
+            <div class="flex gap-4 flex-wrap">
+                {#each pref3 as teacher}
+                    {#await getTeacher(teacher) then val}
+                        {#await allot(val["_id"]) then allotHours}
+                            {#if allotHours}
+                                <EditTeacher
+                                    name={val.name}
+                                    profilePicture={val.profilePicture}
+                                    id={val.id}
+                                    {subjectId}
+                                    {allotedTeachers}
+                                    {allotHours}
+                                />
+                            {/if}
+                        {/await}
+                    {/await}
+                {/each}
+            </div>
+        </div>
+    {/if}
 </div>
