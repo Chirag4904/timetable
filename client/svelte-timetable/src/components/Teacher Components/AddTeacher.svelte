@@ -29,7 +29,6 @@
         const data = await resp.json();
         teachers = data;
         selectedTeacher = teachers[0].id;
-        // console.log(teachers);
     }
 
     async function handleAddTeacher() {
