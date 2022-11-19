@@ -43,18 +43,25 @@
 </script>
 
 {#if teachers}
-    <div class="flex">
-        <div>
-            <select bind:value={selectedTeacher} placeholder="Select Teacher">
+    <div class="flex p-4 bg-[#04aa6d] rounded-lg w-[30%] m-auto">
+        <div class="w-[80%]">
+            <select
+                bind:value={selectedTeacher}
+                class="w-full h-8 rounded-lg"
+                placeholder="Select Teacher"
+            >
                 {#each teachers as teacher}
-                    <option value={teacher.id}>
+                    <option value={teacher.id} class="text-center">
                         {teacher.name}
                     </option>
                 {/each}
             </select>
         </div>
 
-        <button on:click={handleAddTeacher} class="cursor-pointer bg-red-200">
+        <button
+            on:click={handleAddTeacher}
+            class="cursor-pointer w-[20%] bg-black text-white rounded-lg"
+        >
             Add
         </button>
     </div>

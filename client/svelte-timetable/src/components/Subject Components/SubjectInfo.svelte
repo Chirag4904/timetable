@@ -37,16 +37,20 @@
 </script>
 
 {#if subject}
-    <AddTeacher subjectId={id} on:teacherAdded={handleTeacherAdded} />
     <div class="bg-gray-100">
-        <SubjectPref
-            subjectId={subject.id}
-            subjectName={subject.name}
-            pref1={subject.choice1}
-            pref2={subject.choice2}
-            pref3={subject.choice3}
-            allotedTeachers={subject.allotedTeachers}
-            {manualTeachers}
-        />
+        <div class="">
+            <SubjectPref
+                subjectId={subject.id}
+                subjectName={subject.name}
+                pref1={subject.choice1}
+                pref2={subject.choice2}
+                pref3={subject.choice3}
+                allotedTeachers={subject.allotedTeachers}
+                {manualTeachers}
+            />
+        </div>
+        <div class="w-full mt-4">
+            <AddTeacher subjectId={id} on:teacherAdded={handleTeacherAdded} />
+        </div>
     </div>
 {/if}
