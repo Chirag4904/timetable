@@ -20,6 +20,7 @@
         "joi": "^17.6.4",
         "migrate": "^1.8.0",
         "mongoose": "^6.6.5",
+        "morgan": "^1.10.0",
         "timetable-project": "file:.."
     },
     "devDependencies": {
