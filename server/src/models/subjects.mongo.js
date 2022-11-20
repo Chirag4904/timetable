@@ -61,20 +61,23 @@ const subjectsSchema = new mongoose.Schema({
         type: Array,
         required: true,
     },
-    allotedHours: new mongoose.Schema({
-        lecture: {
-            type: Number,
-            default: 0,
+    allotedHours: new mongoose.Schema(
+        {
+            lecture: {
+                type: Number,
+                default: 0,
+            },
+            tutorial: {
+                type: Number,
+                default: 0,
+            },
+            practical: {
+                type: Number,
+                default: 0,
+            },
         },
-        tutorial: {
-            type: Number,
-            default: 0,
-        },
-        practical: {
-            type: Number,
-            default: 0,
-        },
-    }),
+        { timestamps: true }
+    ),
 });
 
 module.exports = mongoose.model("Subject", subjectsSchema);

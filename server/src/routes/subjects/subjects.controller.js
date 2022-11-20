@@ -18,11 +18,19 @@ async function computed_calculateallotedHours() {
     // get all subject ids in allotment
     const subs = await Allotment.find();
 
-    const { results, errors } = await PromisePool.withConcurrency(20)
+    const { results, errors } = await PromisePool.withConcurrency(100)
         .for(subs)
         .process(async (allotData) => {
             const subject = await Subject.findById(allotData.subject);
-            console.log(subject);
+            // console.log(subject);
+
+            // only calculate further if allotment has been updated
+            if (
+                subject.allotedHours.updatedAt &&
+                subject.allotedHours.updatedAt > allotData.updatedAt
+            ) {
+                return;
+            }
             // calculate the hours
             let allotedHours = { lecture: 0, practical: 0, tutorial: 0 };
             allotData.allotedTeachers.forEach((elem) => {
@@ -31,11 +39,11 @@ async function computed_calculateallotedHours() {
                 allotedHours.practical += elem.practicalHrs;
             });
             subject.allotedHours = allotedHours;
-            console.log(subject.allotedHours);
+            console.log("updated: ", subject.allotedHours, subject.id);
             await subject.save();
         });
-    if (errors) {
-        console.error(errors);
+    if (errors && errors.length) {
+        console.error(errors, "here");
     }
 }
 
