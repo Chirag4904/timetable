@@ -1,9 +1,5 @@
 const { convertIntObj } = require("../../utilities/utils");
-const {
-    getAllSubjects,
-    updateSubjectState,
-    addTeacherToSubject,
-} = require("../../models/subjects.model");
+const { getAllSubjects, updateSubjectState, addTeacherToSubject } = require("../../models/subjects.model");
 const Allotment = require("../../models/allotment.mongo");
 const Subject = require("../../models/subjects.mongo");
 const { PromisePool } = require("@supercharge/promise-pool");
