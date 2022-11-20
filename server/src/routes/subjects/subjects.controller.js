@@ -30,10 +30,7 @@ async function computed_calculateallotedHours() {
             // console.log(subject);
 
             // only calculate further if allotment has been updated
-            if (
-                subject.allotedHours.updatedAt &&
-                subject.allotedHours.updatedAt > allotData.updatedAt
-            ) {
+            if (subject.allotedHours.updatedAt && subject.allotedHours.updatedAt > allotData.updatedAt) {
                 return;
             }
             // calculate the hours
