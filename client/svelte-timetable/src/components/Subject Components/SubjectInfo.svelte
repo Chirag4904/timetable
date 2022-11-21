@@ -6,6 +6,12 @@
     const subjectsUrl = "http://localhost:5000/api/subjects";
     let subject;
     $: manualTeachers = [];
+    $: remaningHours = {
+        lecture: 0,
+        tutorial: 0,
+        practical: 0,
+    };
+
     onMount(async function () {
         await httpGetSubjects();
     });
@@ -20,6 +26,11 @@
         let tutHours = subject.originalStructure.T * subject.tutLabBatches;
         let labHours = subject.originalStructure.P * subject.tutLabBatches;
         let total = lecHours + tutHours + labHours;
+        remaningHours = {
+            lecture: lecHours - subject.allotedHours.lecture,
+            tutorial: tutHours - subject.allotedHours.tutorial,
+            practical: labHours - subject.allotedHours.practical,
+        };
         console.log(subject.name);
         console.log("lecture Hours", lecHours);
         console.log("tutorial Hours", tutHours);
@@ -35,6 +46,12 @@
         // manualTeachers = e.detail.subject.manualTeachers;
     }
 
+    function handleUpdateRemaningHours(e) {
+        console.log(e.detail);
+
+        remaningHours = e.detail;
+    }
+
     // function calculate
 </script>
 
@@ -47,8 +64,20 @@
             <div>-</div>
             <div>{subject.name}</div>
         </div>
+        <div class="flex gap-x-4 justify-around mt-2">
+            <div class="p-2 bg-yellow-200 rounded-md">
+                Remaining lecture : {remaningHours.lecture}
+            </div>
+            <div class="p-2 bg-yellow-200 rounded-md">
+                Remaining tutorial : {remaningHours.tutorial}
+            </div>
+            <div class="p-2 bg-yellow-200 rounded-md">
+                Remaining practical : {remaningHours.practical}
+            </div>
+        </div>
         <div class="">
             <SubjectPref
+                on:remaningHours={handleUpdateRemaningHours}
                 subjectId={subject.id}
                 subjectName={subject.name}
                 pref1={subject.choice1}

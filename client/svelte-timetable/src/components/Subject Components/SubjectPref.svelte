@@ -1,4 +1,5 @@
 <script>
+    import { createEventDispatcher } from "svelte";
     import EditTeacher from "../Teacher Components/EditTeacher.svelte";
     const teachersUrl = "http://localhost:5000/api/teachers";
     export let pref1;
@@ -7,12 +8,14 @@
     export let subjectId;
     export let subjectName;
     export let allotedTeachers;
+    // console.log(allotedTeachers);
+    const dispatch = createEventDispatcher();
     export let manualTeachers;
 
     async function getTeacher(candidate) {
         const resp = await fetch(`${teachersUrl}/?id=${candidate}`);
         const data = await resp.json();
-        // console.log(data[0]["_id"]);
+        // console.log(data);
         return await data[0];
     }
 
@@ -41,7 +44,7 @@
     };
 
     function handleTeacherAssigned(e) {
-        console.log(e.detail);
+        dispatch("remaningHours", e.detail);
     }
 </script>
 
@@ -59,8 +62,8 @@
                                 profilePicture={val.profilePicture}
                                 id={val.id}
                                 {subjectId}
-                                {allotedTeachers}
                                 {allotHours}
+                                allotedSubjects={val.allotedSubjects}
                             />
                         {/if}
                     {/await}
@@ -77,12 +80,13 @@
                         {#await allot(val["_id"]) then allotHours}
                             {#if allotHours}
                                 <EditTeacher
+                                    on:teacherAssigned={handleTeacherAssigned}
                                     name={val.name}
                                     profilePicture={val.profilePicture}
                                     id={val.id}
                                     {subjectId}
-                                    {allotedTeachers}
                                     {allotHours}
+                                    allotedSubjects={val.allotedSubjects}
                                 />
                             {/if}
                         {/await}
@@ -101,12 +105,13 @@
                         {#await allot(val["_id"]) then allotHours}
                             {#if allotHours}
                                 <EditTeacher
+                                    on:teacherAssigned={handleTeacherAssigned}
                                     name={val.name}
                                     profilePicture={val.profilePicture}
                                     id={val.id}
                                     {subjectId}
-                                    {allotedTeachers}
                                     {allotHours}
+                                    allotedSubjects={val.allotedSubjects}
                                 />
                             {/if}
                         {/await}
@@ -124,12 +129,13 @@
                         {#await allot(val["_id"]) then allotHours}
                             {#if allotHours}
                                 <EditTeacher
+                                    on:teacherAssigned={handleTeacherAssigned}
                                     name={val.name}
                                     profilePicture={val.profilePicture}
                                     id={val.id}
                                     {subjectId}
-                                    {allotedTeachers}
                                     {allotHours}
+                                    allotedSubjects={val.allotedSubjects}
                                 />
                             {/if}
                         {/await}
