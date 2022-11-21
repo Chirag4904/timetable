@@ -4,10 +4,12 @@
 
     export let name;
     export let profilePicture;
-    // export let subjects;
+    export let allotedSubjects;
+    // console.log(allotedSubjects);
     export let subjectId;
-    export let allotedTeachers;
+
     export let allotHours;
+    // console.log(allotHours);
     let originalHours = allotHours;
     // console.log(originalHours);
     $: currentLoad =
@@ -92,7 +94,14 @@
     }
 </script>
 
-<div class="mt-2 bg-white px-4 rounded-md pb-1">
+<div class="mt-2 bg-white px-4 rounded-md pb-1 relative">
+    {#if allotedSubjects.length >= 2}
+        <div
+            class="absolute top-[-9%] w-full left-0 text-center rounded-md bg-red-400"
+        >
+            <span>Alloted {allotedSubjects.length} subjects</span>
+        </div>
+    {/if}
     <div class="flex justify-between">
         <div>Current Hours</div>
         <div>{currentLoad}</div>
@@ -147,5 +156,21 @@
     .save {
         background-color: black;
         border-radius: 6px;
+    }
+
+    span {
+        animation: blink 1s linear infinite;
+    }
+
+    @keyframes blink {
+        0% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 0.5;
+        }
+        100% {
+            opacity: 1;
+        }
     }
 </style>
