@@ -39,17 +39,13 @@
             tutorialHrs: 0,
         };
     };
+
+    function handleTeacherAssigned(e) {
+        console.log(e.detail);
+    }
 </script>
 
-<div class="flex flex-col gap-y-4 pl-10 overflow-x-hidden">
-    <div
-        class="w-screen h-8 bg-red-10 justify-center text-[22px] font-medium flex gap-x-2"
-    >
-        <div>{subjectId}</div>
-        <div>-</div>
-        <div>{subjectName}</div>
-    </div>
-
+<div class="flex flex-col gap-y-4 pl-10 overflow-x-hidden mt-10">
     {#if manualTeachers.length > 0}
         <div>Manually Added Teachers</div>
         <div class="flex gap-4 flex-wrap">
@@ -58,6 +54,7 @@
                     {#await allot(val["_id"]) then allotHours}
                         {#if allotHours}
                             <EditTeacher
+                                on:teacherAssigned={handleTeacherAssigned}
                                 name={val.name}
                                 profilePicture={val.profilePicture}
                                 id={val.id}

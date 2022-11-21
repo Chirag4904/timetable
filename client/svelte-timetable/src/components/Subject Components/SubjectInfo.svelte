@@ -15,7 +15,7 @@
         const data = await resp.json();
         subject = data[0];
         manualTeachers = subject.manualTeachers;
-        // console.log(subject);
+        console.log(subject);
         let lecHours = subject.originalStructure.L * subject.lectureBatches;
         let tutHours = subject.originalStructure.T * subject.tutLabBatches;
         let labHours = subject.originalStructure.P * subject.tutLabBatches;
@@ -34,10 +34,19 @@
         await httpGetSubjects();
         // manualTeachers = e.detail.subject.manualTeachers;
     }
+
+    // function calculate
 </script>
 
 {#if subject}
     <div class="bg-gray-100 h-screen">
+        <div
+            class="w-screen h-8 bg-red-10 justify-center text-[22px] font-medium flex gap-x-2"
+        >
+            <div>{subject.id}</div>
+            <div>-</div>
+            <div>{subject.name}</div>
+        </div>
         <div class="">
             <SubjectPref
                 subjectId={subject.id}
