@@ -1,5 +1,7 @@
 <script>
     import axios from "axios";
+    import { createEventDispatcher } from "svelte";
+
     export let name;
     export let profilePicture;
     // export let subjects;
@@ -14,6 +16,16 @@
         originalHours.tutorialHrs;
     export let id;
     let currentSubject;
+
+    const dispatch = createEventDispatcher();
+    function dispatchTeacherAssigned(resp) {
+        dispatch("teacherAssigned", {
+            lecture: resp.data.available_subject_workload.lecture,
+            practical: resp.data.available_subject_workload.practical,
+            tutorial: resp.data.available_subject_workload.tutorial,
+        });
+    }
+
     const allotTeacherUrl = "http://localhost:5000/api/general/commit_ltp";
     const saveHours = async () => {
         try {
@@ -24,6 +36,7 @@
                 tutorial_hours: allotHours.tutorialHrs,
                 practical_hours: allotHours.practicalHrs,
             });
+
             console.log(resp);
 
             let isAssigned = false;
@@ -38,15 +51,16 @@
             }
             const updateSubjectUrl = "http://localhost:5000/api/subjects";
             try {
-                const resp = await axios.post(updateSubjectUrl, {
+                await axios.post(updateSubjectUrl, {
                     id: subjectId,
                     isAssigned: isAssigned,
                 });
-                console.log(resp);
+                // console.log(resp);
             } catch (err) {
                 console.log(err);
             }
             originalHours = allotHours;
+            dispatchTeacherAssigned(resp);
             // allotHours.lectureHrs = ;
         } catch (err) {
             alert(err.response.data.erro_desc.message);

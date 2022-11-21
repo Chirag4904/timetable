@@ -7,6 +7,7 @@
     export let teacherId;
     let teacherMongoId;
     let allotedSubjects;
+    $: subjectTotalHours = 0;
     onMount(async function () {
         await httpGetTeacherInfo();
     });
@@ -15,7 +16,7 @@
         const resp = await fetch(`${teachersUrl}?id=${teacherId}`);
         const data = await resp.json();
         teacher = data[0];
-        console.log(teacher);
+        // console.log(teacher);
         teacherMongoId = teacher._id;
         allotedSubjects = teacher.allotedSubjects;
     }
@@ -25,7 +26,11 @@
         const resp = await axios.get(`${subjectsUrl}?id=${subjectId}`);
         const data = await resp.data;
         const subject = data[0];
-
+        // console.log(subject);
+        subjectTotalHours =
+            subject.totalLecture +
+            subject.totalTutorial +
+            subject.totalPractical;
         const allotedTeachers = subject.allotedTeachers;
         let allotment = {
             subjectName: "",
@@ -81,7 +86,7 @@
                 </div>
                 {#each allotedSubjects as subject}
                     {#await httpGetAllotedSubjectsInfo(subject.id) then allotment}
-                        <DropDown {allotment} />
+                        <DropDown {allotment} {subjectTotalHours} />
                     {/await}
                 {/each}
             </div>

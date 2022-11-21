@@ -2,10 +2,14 @@
     import Icon from "@iconify/svelte";
     import { slide } from "svelte/transition";
     export let allotment;
+    export let subjectTotalHours;
     $: isOpen = false;
     const toggle = () => {
         isOpen = !isOpen;
     };
+    const currentAllotedHours =
+        allotment.lectureHrs + allotment.tutorialHrs + allotment.practicalHrs;
+    const percent = Math.floor((currentAllotedHours / subjectTotalHours) * 100);
 </script>
 
 <div
@@ -23,13 +27,15 @@
         <div class="text-[20px] pl-2 font-semibold">
             {allotment.subjectName}
         </div>
-        <div class="text-[22px] pl-2 font-semibold text-orange-700">10</div>
+        <div class="text-[22px] pl-2 font-semibold text-orange-700">
+            {currentAllotedHours}
+        </div>
         <div
             role="progressbar"
-            aria-valuenow="67"
+            aria-valuenow="6"
             aria-valuemin="0"
             aria-valuemax="100"
-            style="--value: 67"
+            style={`--value:${percent}`}
         />
         <!-- <div class="shadow-[0_9px_17px_-3px_rgba(0,0,0,0.3)] ">
             <Icon icon="material-symbols:menu-book-outline-sharp" color="black" width="40" height="40" />
