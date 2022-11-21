@@ -1,11 +1,22 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const morgan = require("morgan");
 
 const teachersRouter = require("./routes/teachers/teachers.router");
 const subjectsRouter = require("./routes/subjects/subjects.router");
 
 const { genAPIRouter } = require("./routes/general/gen-api.router");
+
+/** setup logging */
+// sauce: https://stackoverflow.com/a/47074065
+app.use(
+    morgan("Started :method :url for :remote-addr", {
+        immediate: true,
+    })
+);
+app.use(morgan("Completed :status :res[content-length] in :response-time ms"));
+/** =============== */
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

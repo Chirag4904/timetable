@@ -86,6 +86,17 @@ async function getAllSubjects(query) {
                 as: "teachObj",
             },
         },
+        {
+            $set: {
+                "remainingHours.lecture": { $subtract: ["$totalLecture", "$allotedHours.lecture"] },
+                "remainingHours.tutorial": {
+                    $subtract: ["$totalTutorial", "$allotedHours.tutorial"],
+                },
+                "remainingHours.practical": {
+                    $subtract: ["$totalPractical", "$allotedHours.practical"],
+                },
+            },
+        },
     ]);
 }
 

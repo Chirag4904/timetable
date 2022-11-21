@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost:27017/my-db";
+const MONGO_URL = process.env.MONGO_URL || process.env.MONGODB_URL || "mongodb://localhost:27017/my-db";
 
 mongoose.connection.once("open", () => {
     console.log("mongodb is ready");
@@ -21,4 +21,5 @@ async function mongoDisconnect() {
 module.exports = {
     mongoConnect,
     mongoDisconnect,
+    MONGO_URL,
 };

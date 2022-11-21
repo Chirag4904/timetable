@@ -4,6 +4,7 @@ const app = require("./app");
 const { mongoConnect } = require("./services/mongo");
 const { loadTeachersData } = require("./models/teachers.model");
 const { loadsubjectsData } = require("./models/subjects.model");
+const { runMigrations } = require("./services/monogdb-migrations");
 
 const PORT = process.env.PORT || 5000;
 
@@ -11,6 +12,7 @@ const server = http.createServer(app);
 
 async function startServer() {
     await mongoConnect(process.env.MONGODB_URL || "");
+    runMigrations();
     // await loadTeachersData();
     // await loadsubjectsData();
 
