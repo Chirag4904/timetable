@@ -147,41 +147,51 @@ async function commitLTPHandler(req) {
         }
     });
 
-    // ==================================================
-
-    // now we're clear to modify the allotent document
-    const _index = allotment.allotedTeachers.findIndex((e) => e.teacher.equals(teach._id));
-    console.log("index:", _index);
-    const _toSave = {
-        teacher: teach._id,
-        lectureHrs: req.lecture_hours,
-        tutorialHrs: req.tutorial_hours,
-        practicalHrs: req.practical_hours,
-    };
-    if (_index === -1) {
-        allotment.allotedTeachers.push(_toSave);
+    // if ltp hours are zero, then remove the entry from allotment
+    if (req.lecture_hours + req.tutorial_hours + req.practical_hours === 0) {
+        const _index = allotment.allotedTeachers.findIndex((e) => e.teacher.equals(teach._id));
+        if (_index !== -1) {
+            allotment.allotedTeachers.splice(_index, 1);
+            allotment.save();
+            console.log("deleted alloted entry");
+        }
     } else {
-        allotment.allotedTeachers[_index] = _toSave;
+        // ==================================================
+
+        // now we're clear to modify the allotent document
+        const _index = allotment.allotedTeachers.findIndex((e) => e.teacher.equals(teach._id));
+        console.log("index:", _index);
+        const _toSave = {
+            teacher: teach._id,
+            lectureHrs: req.lecture_hours,
+            tutorialHrs: req.tutorial_hours,
+            practicalHrs: req.practical_hours,
+        };
+        if (_index === -1) {
+            allotment.allotedTeachers.push(_toSave);
+        } else {
+            allotment.allotedTeachers[_index] = _toSave;
+        }
+
+        allotment
+            .save()
+            .then()
+            .catch((err) => {
+                throw { message: err };
+            });
+
+        // NOTE: Intentionally not updating the teachers workload from here since it can lead to duplicate workload being added
+        //       Better solution is to dynamically get teacher's workload
+        // update teacher's workloa
+        // teach.currentLoad += req.lecture_hours + req.tutorial_hours + req.practical_hours;
+
+        // teach
+        //     .save()
+        //     .then()
+        //     .catch((err) => {
+        //         throw { message: err };
+        //     });
     }
-
-    allotment
-        .save()
-        .then()
-        .catch((err) => {
-            throw { message: err };
-        });
-
-    // NOTE: Intentionally not updating the teachers workload from here since it can lead to duplicate workload being added
-    //       Better solution is to dynamically get teacher's workload
-    // update teacher's workloa
-    // teach.currentLoad += req.lecture_hours + req.tutorial_hours + req.practical_hours;
-
-    // teach
-    //     .save()
-    //     .then()
-    //     .catch((err) => {
-    //         throw { message: err };
-    //     });
 
     return {
         is_feasible: true,
