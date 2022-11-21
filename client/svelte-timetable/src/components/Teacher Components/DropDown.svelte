@@ -1,4 +1,5 @@
 <script>
+    import { Router, navigate, Link } from "svelte-routing";
     import Icon from "@iconify/svelte";
     import { slide } from "svelte/transition";
     export let allotment;
@@ -12,103 +13,106 @@
     const percent = Math.floor((currentAllotedHours / subjectTotalHours) * 100);
 </script>
 
-<div
-    class="  m-auto p-4 rounded-l shadow-[0_9px_17px_-3px_rgba(0,0,0,0.1)] w-full "
->
+<Router url="/">
     <div
-        on:click={toggle}
-        class="button  aria-expanded={isOpen} cursor-pointer flex justify-between items-center w-full"
+        class="  m-auto p-4 rounded-l shadow-[0_9px_17px_-3px_rgba(0,0,0,0.1)] w-full "
     >
         <div
-            class="bg-cyan-500 shadow-lg shadow-cyan-500/50 p-4 rounded-l text-white"
+            on:click={toggle}
+            class="button  aria-expanded={isOpen} cursor-pointer flex justify-between items-center w-full"
         >
-            {allotment.subjectId}
-        </div>
-        <div class="text-[20px] pl-2 font-semibold">
-            {allotment.subjectName}
-        </div>
-        <div class="text-[22px] pl-2 font-semibold text-orange-700">
-            {currentAllotedHours}
-        </div>
-        <div
-            role="progressbar"
-            aria-valuenow="6"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            style={`--value:${percent}`}
-        />
-        <!-- <div class="shadow-[0_9px_17px_-3px_rgba(0,0,0,0.3)] ">
+            <div
+                class="bg-cyan-500 shadow-lg shadow-cyan-500/50 p-4 rounded-l text-white"
+            >
+                {allotment.subjectId}
+            </div>
+            <div class="text-[20px] pl-2 font-semibold">
+                {allotment.subjectName}
+            </div>
+            <div class="text-[22px] pl-2 font-semibold text-orange-700">
+                {currentAllotedHours}
+            </div>
+            <div
+                role="progressbar"
+                aria-valuenow="6"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style={`--value:${percent}`}
+            />
+            <!-- <div class="shadow-[0_9px_17px_-3px_rgba(0,0,0,0.3)] ">
             <Icon icon="material-symbols:menu-book-outline-sharp" color="black" width="40" height="40" />
         </div> -->
-        <div class="relative ">
-            <Icon
-                icon="material-symbols:menu-book-outline-sharp"
-                color="black"
-                width="40"
-                height="40"
-                class="drop-shadow-2xl"
-            />
-            <div
-                class=" absolute bottom-[-60px] opacity-0 hover:opacity-100 duration-300 absolute inset-0 z-10 flex justify-center items-center text-[11px] text-blue-400 font-semibold"
-            >
-                Subject
-            </div>
-        </div>
-    </div>
+            <Link to={`/app/subjects/${allotment.subjectId}`}>
+                <div class="relative ">
+                    <div>
+                        <Icon
+                            icon="material-symbols:menu-book-outline-sharp"
+                            color="black"
+                            width="40"
+                            height="40"
+                            class="drop-shadow-2xl"
+                        />
+                    </div>
 
-    {#if isOpen}
-        <div
-            class="flex flex-col mt-4 gap-y-2"
-            transition:slide={{ duration: 300 }}
-        >
-            <div class="flex gap-x-2 items-center ">
-                <Icon
-                    icon="ic:baseline-keyboard-arrow-right"
-                    width="20"
-                    height="20"
-                />
-                <div class="text-[20px] pl-2 font-semibold self-end">
-                    Lecture Hours :
+                    <div
+                        class=" absolute bottom-[-60px] opacity-0 hover:opacity-100 duration-300 absolute inset-0 z-10 flex justify-center items-center text-[11px] text-blue-400 font-semibold"
+                    >
+                        Subject
+                    </div>
                 </div>
-                <div class="text-[20px] pl-2 font-semibold">
-                    {allotment.lectureHrs}
-                </div>
-            </div>
-            <div class="flex gap-x-2 items-center">
-                <Icon
-                    icon="ic:baseline-keyboard-arrow-right"
-                    width="20"
-                    height="20"
-                />
-                <div class="text-[20px] pl-2 font-semibold">
-                    Tutorial Hours :
-                </div>
-                <div class="text-[20px] pl-2 font-semibold">
-                    {allotment.tutorialHrs}
-                </div>
-            </div>
-            <div class="flex gap-x-2 items-center">
-                <Icon
-                    icon="ic:baseline-keyboard-arrow-right"
-                    width="20"
-                    height="20"
-                />
-                <div class="text-[20px] pl-2 font-semibold">
-                    Practical Hours :
-                </div>
-                <div class="text-[20px] pl-2 font-semibold">
-                    {allotment.practicalHrs}
-                </div>
-            </div>
+            </Link>
         </div>
-    {/if}
-</div>
+
+        {#if isOpen}
+            <div
+                class="flex flex-col mt-4 gap-y-2"
+                transition:slide={{ duration: 300 }}
+            >
+                <div class="flex gap-x-2 items-center ">
+                    <Icon
+                        icon="ic:baseline-keyboard-arrow-right"
+                        width="20"
+                        height="20"
+                    />
+                    <div class="text-[20px] pl-2 font-semibold self-end">
+                        Lecture Hours :
+                    </div>
+                    <div class="text-[20px] pl-2 font-semibold">
+                        {allotment.lectureHrs}
+                    </div>
+                </div>
+                <div class="flex gap-x-2 items-center">
+                    <Icon
+                        icon="ic:baseline-keyboard-arrow-right"
+                        width="20"
+                        height="20"
+                    />
+                    <div class="text-[20px] pl-2 font-semibold">
+                        Tutorial Hours :
+                    </div>
+                    <div class="text-[20px] pl-2 font-semibold">
+                        {allotment.tutorialHrs}
+                    </div>
+                </div>
+                <div class="flex gap-x-2 items-center">
+                    <Icon
+                        icon="ic:baseline-keyboard-arrow-right"
+                        width="20"
+                        height="20"
+                    />
+                    <div class="text-[20px] pl-2 font-semibold">
+                        Practical Hours :
+                    </div>
+                    <div class="text-[20px] pl-2 font-semibold">
+                        {allotment.practicalHrs}
+                    </div>
+                </div>
+            </div>
+        {/if}
+    </div>
+</Router>
 
 <style>
-    .circular .bar {
-        clip: rect(0px, 96px, 96px, 48px);
-    }
-
     @keyframes progress {
         0% {
             --percentage: 0;
