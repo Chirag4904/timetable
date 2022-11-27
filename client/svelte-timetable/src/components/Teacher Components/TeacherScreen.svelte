@@ -19,18 +19,28 @@
 </script>
 
 <div>
-    <div class="text-center text-2xl ">T E A C H E R S</div>
+    <div class=" teach ml-10 mt-3 text-[30px] font-bold ">T E A C H E R S</div>
 
     {#if teachers}
-        <div class="flex gap-x-2 mt-4 flex-wrap">
+        <div class="flex gap-x-2 mt-4 ml-4 mb-10 flex-wrap">
             {#each teachers as teacher}
-                <Teacher
-                    id={teacher.id}
-                    name={teacher.name}
-                    profilePicture={teacher.profilePicture}
-                    isAvailable={teacher.isAvailable}
-                />
+                <div
+                    class="flex card rounded-lg shadow-[0px_0px_3px_rgba(3,102,214,0.3)] mb-10 ml-2 mr -2 bg-gray-50 h-30 transition duration-300 ease-in-out hover:opacity-70"
+                >
+                    <Teacher
+                        id={teacher.id}
+                        name={teacher.name}
+                        profilePicture={teacher.profilePicture}
+                        isAvailable={teacher.isAvailable}
+                    />
+                </div>
             {/each}
         </div>
     {/if}
 </div>
+
+<style>
+    .teach {
+        font-family: "Poppins";
+    }
+</style>
