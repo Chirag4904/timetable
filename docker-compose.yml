@@ -31,7 +31,7 @@ services:
       DB_PASS: mehmeh
       PORT: 8000
       MONGODB_URL: mongodb://root:mehmeh@mongodb:27017/
-      # MONGODB_URL: mongodb+srv://chirag:ca123456@nasacluster.hgrntbn.mongodb.net/newTest?retryWrites=true&w=majority
+      
     depends_on:
       - mongodb
 
