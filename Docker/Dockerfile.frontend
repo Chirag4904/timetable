@@ -1,0 +1,17 @@
+FROM node:18 as frontend
+
+WORKDIR /app
+
+COPY ./client/svelte-timetable/package.json .
+RUN npm install --verbose
+
+ENV API_URL="http://localhost:5000"
+
+COPY ./client/svelte-timetable/ .
+RUN npm run build
+
+# -------
+
+FROM nginx:alpine
+COPY ./client/svelte-timetable/src/assets /usr/share/nginx/html/src/assets
+COPY --from=frontend /app/dist/ /usr/share/nginx/html
