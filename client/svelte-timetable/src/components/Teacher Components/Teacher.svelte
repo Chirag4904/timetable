@@ -11,8 +11,8 @@
 
 <Router url="/">
     <Link to={id}>
-        <div class="flex flex-col mt-2 p-1 justify-around cursor-pointer">
-            <div class="w-full">
+        <div class="flex  mt-2 p-1 justify-around cursor-pointer items-center">
+            <div class="w-full ">
                 <img
                     src={profilePicture}
                     alt={name}
@@ -21,9 +21,9 @@
             </div>
 
             <div
-                class="text-center {isAvailable
-                    ? 'bg-green-200'
-                    : 'bg-red-200'}"
+                class=" w-96 rounded -md text-center text-[15px] text-lime-100 font-semibold p-6 {isAvailable
+                    ? 'bg-gradient-to-r from-[#233329] to-[#63D471]'
+                    : 'bg-gradient-to-r from-[#A71D31] to-[#3F0D12]'}"
             >
                 {name}
             </div>
