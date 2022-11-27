@@ -62,8 +62,8 @@
             <div class="w-full">
                 <div class="text-center flex-col gap-y-10 mt-20">
                     <img
-                        src="https://thumbs.dreamstime.com/b/happy-smiling-geek-hipster-beard-man-cool-avatar-geek-man-avatar-104871313.jpg"
-                        alt=""
+                        src={teacher.profilePicture}
+                        alt={teacher.name}
                         class="rounded-full h-32 w-32 bg-[#002254] m-auto"
                     />
                     <div
