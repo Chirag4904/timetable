@@ -5,11 +5,11 @@
     export let name;
     export let profilePicture;
     export let allotedSubjects;
-    // console.log(allotedSubjects);
+    // console.log("alloted subjects", allotedSubjects);
     export let subjectId;
 
     export let allotHours;
-    // console.log(allotHours);
+    // console.log("alloted Hours", allotHours);
     let originalHours = allotHours;
     // console.log(originalHours);
     $: currentLoad =
@@ -17,7 +17,6 @@
         originalHours.practicalHrs +
         originalHours.tutorialHrs;
     export let id;
-    let currentSubject;
 
     const dispatch = createEventDispatcher();
     function dispatchTeacherAssigned(resp) {
@@ -92,10 +91,26 @@
             allotHours.practicalHrs -= 2;
         }
     }
+
+    function isSubjectInAllottedSubjects() {
+        let flag = false;
+        allotedSubjects.forEach((subject) => {
+            if (subject.id == subjectId) {
+                flag = true;
+            }
+        });
+        return flag;
+    }
 </script>
 
 <div class="mt-2 bg-white px-4 rounded-md pb-1 relative">
-    {#if allotedSubjects.length >= 2}
+    {#if allotedSubjects.length > 2}
+        <div
+            class="absolute top-[-9%] w-full left-0 text-center rounded-md bg-red-400"
+        >
+            <span>Alloted {allotedSubjects.length} subjects</span>
+        </div>
+    {:else if allotedSubjects.length == 2 && !isSubjectInAllottedSubjects()}
         <div
             class="absolute top-[-9%] w-full left-0 text-center rounded-md bg-red-400"
         >
