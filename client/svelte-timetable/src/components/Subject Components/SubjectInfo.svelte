@@ -12,6 +12,7 @@
         practical: 0,
     };
 
+    $: total = 0;
     onMount(async function () {
         await httpGetSubjects();
     });
@@ -25,7 +26,7 @@
         let lecHours = subject.originalStructure.L * subject.lectureBatches;
         let tutHours = subject.originalStructure.T * subject.tutLabBatches;
         let labHours = subject.originalStructure.P * subject.tutLabBatches;
-        let total = lecHours + tutHours + labHours;
+        total = lecHours + tutHours + labHours;
         remaningHours = {
             lecture: lecHours - subject.allotedHours.lecture,
             tutorial: tutHours - subject.allotedHours.tutorial,
@@ -56,13 +57,14 @@
 </script>
 
 {#if subject}
-    <div class="bg-gray-100 h-screen">
+    <div class="bg-gray-100 min-h-screen w-[99vw] overflow-x-hidden">
         <div
-            class="w-screen h-8 bg-red-10 justify-center text-[22px] font-medium flex gap-x-2"
+            class="w-screen h-8 bg-red-10 justify-center text-[22px] font-medium flex gap-x-2 items-center"
         >
             <div>{subject.id}</div>
             <div>-</div>
             <div>{subject.name}</div>
+            <div class="bg-green-200 px-3 rounded-md py-1 ">{total}</div>
         </div>
         <div class="flex gap-x-4 justify-around mt-2">
             <div class="p-2 bg-yellow-200 rounded-md">
